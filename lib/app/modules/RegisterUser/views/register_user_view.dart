@@ -106,7 +106,7 @@ class RegisterUserView extends GetView<RegisterUserController> {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(top: h * 0.05),
+                padding: EdgeInsets.only(top: h * 0.03),
                 child: Text(
                   "- Or Sign in With - ",
                   style: TextStyle(color: secondaryColor, fontSize: 16),

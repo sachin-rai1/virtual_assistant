@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/DailyTracker/bindings/daily_tracker_binding.dart';
+import '../modules/DailyTracker/views/daily_tracker_view.dart';
 import '../modules/RegisterUser/bindings/register_user_binding.dart';
 import '../modules/RegisterUser/views/register_user_view.dart';
 import '../modules/SplashScreen/bindings/splash_screen_binding.dart';
@@ -36,6 +38,11 @@ class AppPages {
       name: _Paths.REGISTER_USER,
       page: () => const RegisterUserView(),
       binding: RegisterUserBinding(),
+    ),
+    GetPage(
+      name: _Paths.DAILY_TRACKER,
+      page: () => const DailyTrackerView(),
+      binding: DailyTrackerBinding(),
     ),
   ];
 }

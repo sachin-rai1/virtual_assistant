@@ -129,3 +129,25 @@ class MyTextField extends StatelessWidget {
         ));
   }
 }
+
+
+class MyListTile extends StatelessWidget {
+  final Function()? onTap;
+  final IconData? icon;
+  final String? title;
+  final String? imageString;
+
+  const MyListTile({Key? key, this.onTap, this.icon, this.title, this.imageString}) : super(key: key);
+
+
+  @override
+  Widget build(BuildContext context) {
+    return  ListTile(
+      onTap: onTap,
+      leading:icon == null?Image.asset("assets/icons/$imageString" , color: primaryColor,height: 26,): Icon(icon , color: primaryColor,size: 26,),
+      title: Text(title!),
+
+    );
+  }
+}
+

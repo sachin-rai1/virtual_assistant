@@ -8,6 +8,7 @@ abstract class Routes {
   static const LOGIN_SCREEN = _Paths.LOGIN_SCREEN;
   static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
   static const REGISTER_USER = _Paths.REGISTER_USER;
+  static const DAILY_TRACKER = _Paths.DAILY_TRACKER;
 }
 
 abstract class _Paths {
@@ -15,4 +16,5 @@ abstract class _Paths {
   static const LOGIN_SCREEN = '/login-screen';
   static const SPLASH_SCREEN = '/splash-screen';
   static const REGISTER_USER = '/register-user';
+  static const DAILY_TRACKER = '/daily-tracker';
 }

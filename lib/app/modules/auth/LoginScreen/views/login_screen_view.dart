@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:virtual_assistant/app/data/Widgets.dart';
 import 'package:virtual_assistant/app/modules/RegisterUser/views/register_user_view.dart';
+import 'package:virtual_assistant/app/modules/home/views/home_view.dart';
 
 import '../../../../data/Constants.dart';
 import '../controllers/login_screen_controller.dart';
@@ -57,7 +58,9 @@ class LoginScreenView extends GetView<LoginScreenController> {
                       Padding(
                         padding: EdgeInsets.only(top: h * 0.01),
                         child: MyButton(
-                          onTap: () {},
+                          onTap: () {
+                            Get.to(() => HomeView());
+                          },
                           label: "Sign In",
                           height: h * 0.05,
                           width: w * 0.95,
