@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:virtual_assistant/app/data/Widgets.dart';
 import 'package:virtual_assistant/app/modules/RegisterUser/views/register_user_view.dart';
 import 'package:virtual_assistant/app/modules/home/views/home_view.dart';
-
 import '../../../../data/Constants.dart';
 import '../controllers/login_screen_controller.dart';
 
@@ -104,7 +102,7 @@ class LoginScreenView extends GetView<LoginScreenController> {
         ),
         bottomNavigationBar: Container(
           // color: Colors.green,
-          height: h * 0.2,
+          height: h * 0.15,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -115,22 +113,22 @@ class LoginScreenView extends GetView<LoginScreenController> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  GestureDetector(
+                  InkWell(
                       onTap: () {},
                       child: Container(
-                          height: h * 0.07,
+                          height: h * 0.1,
                           width: w * 0.25,
                           child: Image.asset("assets/icons/google.png"))),
-                  GestureDetector(
+                  InkWell(
                       onTap: () {},
                       child: Container(
-                          height: h * 0.07,
+                          height: h * 0.1,
                           width: w * 0.25,
                           child: Image.asset("assets/icons/facebook.png"))),
                   InkWell(
                       onTap: () {},
                       child: Container(
-                          height: h * 0.07,
+                          height: h * 0.1,
                           width: w * 0.25,
                           child: Image.asset("assets/icons/twitter.png"))),
                 ],

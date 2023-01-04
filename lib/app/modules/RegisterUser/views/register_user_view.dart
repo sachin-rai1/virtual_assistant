@@ -102,7 +102,7 @@ class RegisterUserView extends GetView<RegisterUserController> {
           ),
         ),
         bottomNavigationBar: Container(
-          height: h * 0.2,
+          height: h * 0.25,
           child: Column(
             children: [
               Padding(
@@ -117,23 +117,23 @@ class RegisterUserView extends GetView<RegisterUserController> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    GestureDetector(
+                    InkWell(
                         onTap: () {},
                         child: Container(
-                            height: h * 0.07,
-                            width: w * 0.3,
+                            height: h * 0.1,
+                            width: w * 0.25,
                             child: Image.asset("assets/icons/google.png"))),
-                    GestureDetector(
+                    InkWell(
                         onTap: () {},
                         child: Container(
-                            height: h * 0.07,
-                            width: w * 0.3,
+                            height: h * 0.1,
+                            width: w * 0.25,
                             child: Image.asset("assets/icons/facebook.png"))),
                     InkWell(
                         onTap: () {},
                         child: Container(
-                            height: h * 0.07,
-                            width: w * 0.3,
+                            height: h * 0.1,
+                            width: w * 0.25,
                             child: Image.asset("assets/icons/twitter.png"))),
                   ],
                 ),

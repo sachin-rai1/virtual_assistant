@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 import 'package:virtual_assistant/app/data/Widgets.dart';
-
 import '../../../data/Constants.dart';
+import '../../Reminders/views/reminders_view.dart';
 import '../controllers/daily_tracker_controller.dart';
 
 RxBool drawerClicked = false.obs;
@@ -14,170 +14,120 @@ class DailyTrackerView extends GetView<DailyTrackerController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: _myDrawer(context),
+      drawer: MyDrawer(),
       onDrawerChanged: (isOpen) {
         drawerClicked.value = isOpen;
-        print(isOpen);
       },
       appBar: AppBar(
         actions: [
           Image.asset('assets/icons/calendar.png'),
         ],
-        leading: Builder(builder: (context) {
-          return IconButton(
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-            tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-            icon: Icon(Icons.list),
-          );
-        }),
         elevation: 0,
+        // bottom: PreferredSize(
+        //   preferredSize: Size(10 , 50),
+        //   child: SingleChildScrollView(
+        //     physics:BouncingScrollPhysics(),
+        //     scrollDirection: Axis.horizontal,
+        //     child: Row(
+        //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //       children: [
+        //         MyElevatedButton(onTap: () {}, text: "Test"),
+        //         MyElevatedButton(onTap: () {}, text: "Test"),
+        //         MyElevatedButton(onTap: () {}, text: "Test"),
+        //         MyElevatedButton(onTap: () {}, text: "Test"),
+        //         MyElevatedButton(onTap: () {}, text: "Test"),
+        //         MyElevatedButton(onTap: () {}, text: "Test"),
+        //         MyElevatedButton(onTap: () {}, text: "Test"),
+        //         MyElevatedButton(onTap: () {}, text: "Test"),
+        //         MyElevatedButton(onTap: () {}, text: "Test"),
+        //       ],
+        //     ),
+        //   ),
+        // ),
         backgroundColor: primaryColor,
         title: const Text('Daily Tracker'),
         centerTitle: true,
       ),
-      body: Center(
-        child: Text(
-          'Daily Tracker',
-          style: TextStyle(fontSize: 20),
+      body: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            MyElevatedButton(
+                onTap: () {
+                  Get.to(() => RemindersView(),
+                      arguments: indexValue.value = 0);
+                },
+                text: "Test"),
+            MyElevatedButton(
+                onTap: () {
+                  Get.to(() => RemindersView(),
+                      arguments: indexValue.value = 1);
+                },
+                text: "Test"),
+            MyElevatedButton(onTap: () {}, text: "Test"),
+            MyElevatedButton(onTap: () {}, text: "Test"),
+            MyElevatedButton(onTap: () {}, text: "Test"),
+            MyElevatedButton(onTap: () {}, text: "Test"),
+            MyElevatedButton(onTap: () {}, text: "Test"),
+            MyElevatedButton(onTap: () {}, text: "Test"),
+            MyElevatedButton(onTap: () {}, text: "Test"),
+          ],
         ),
       ),
-    );
-  }
-
-  _myDrawer(BuildContext context) {
-    return Drawer(
-      child: Column(
-        children: <Widget>[
-          DrawerHeader(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+      floatingActionButton: GestureDetector(
+        onTap: () {
+          // Get.toNamed("SwitchUser");
+        },
+        child: Padding(
+          padding: EdgeInsets.only(right: 10, bottom: h * 0.025),
+          child: SpeedDial(
+            animatedIcon: AnimatedIcons.add_event,
+            animatedIconTheme:
+                IconThemeData(color: primaryColor, size: h * 0.05),
+            direction: SpeedDialDirection.up,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
             children: [
-              CircleAvatar(
-                backgroundColor: Colors.transparent,
-                minRadius: w * 0.1,
+              SpeedDialChild(
+                child: Icon(Icons.switch_account_outlined, color: primaryColor),
+                backgroundColor: secondaryColor,
+                onTap: () {},
+                label: 'Switch User',
+                labelStyle:
+                    TextStyle(fontWeight: FontWeight.w500, color: primaryColor),
+                labelBackgroundColor: secondaryColor,
               ),
-              SizedBox(
-                height: 20,
+              SpeedDialChild(
+                child: Icon(Icons.person_add_alt_1, color: primaryColor),
+                backgroundColor: secondaryColor,
+                onTap: () {},
+                label: 'Add User',
+                labelStyle:
+                    TextStyle(fontWeight: FontWeight.w500, color: primaryColor),
+                labelBackgroundColor: secondaryColor,
               ),
-              Text("User Name ")
+              SpeedDialChild(
+                child: Icon(Icons.switch_account_outlined, color: primaryColor),
+                backgroundColor: secondaryColor,
+                onTap: () {},
+                label: 'Switch User',
+                labelStyle:
+                    TextStyle(fontWeight: FontWeight.w500, color: primaryColor),
+                labelBackgroundColor: secondaryColor,
+              ),
+              SpeedDialChild(
+                child: Icon(Icons.person_add_alt_1, color: primaryColor),
+                backgroundColor: secondaryColor,
+                onTap: () {},
+                label: 'Add User',
+                labelStyle:
+                    TextStyle(fontWeight: FontWeight.w500, color: primaryColor),
+                labelBackgroundColor: secondaryColor,
+              ),
             ],
-          )),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(children: <Widget>[
-                MyListTile(
-                  title: 'Dealer',
-                  icon: Icons.person,
-                  onTap: () {},
-                ),
-                MyListTile(
-                  title: 'Shuffler',
-                  icon: Icons.shuffle,
-                  onTap: () {
-                    /*Navigator.pop(context);
-                      Navigator.of(context).push(new MaterialPageRoute(
-                          builder: (context) => shufflerBuilder()));*/
-                  },
-                ),
-                MyListTile(
-                  title: 'Mistakes',
-                  icon: Icons.info_outline,
-                  onTap: () {
-                    /* Navigator.pop(context);
-                      Navigator.of(context).push(new MaterialPageRoute(
-                          builder: (context) => mistakePage()));*/
-                  },
-                ),
-                MyListTile(
-                  title: 'Important links',
-                  icon: Icons.border_color,
-                  onTap: () {
-                    /*Navigator.of(context).push(new MaterialPageRoute(
-                          builder: (context) => importantLinks()));*/
-                  },
-                ),
-                MyListTile(
-                  title: 'Dealer',
-                  icon: Icons.person,
-                  onTap: () {},
-                ),
-                MyListTile(
-                  title: 'Shuffler',
-                  icon: Icons.shuffle,
-                  onTap: () {
-                    /*Navigator.pop(context);
-                      Navigator.of(context).push(new MaterialPageRoute(
-                          builder: (context) => shufflerBuilder()));*/
-                  },
-                ),
-                MyListTile(
-                  title: 'Mistakes',
-                  icon: Icons.info_outline,
-                  onTap: () {
-                    /* Navigator.pop(context);
-                      Navigator.of(context).push(new MaterialPageRoute(
-                          builder: (context) => mistakePage()));*/
-                  },
-                ),
-                MyListTile(
-                  title: 'Important links',
-                  icon: Icons.border_color,
-                  onTap: () {
-                    /*Navigator.of(context).push(new MaterialPageRoute(
-                          builder: (context) => importantLinks()));*/
-                  },
-                ),
-                MyListTile(
-                  title: 'Dealer',
-                  icon: Icons.person,
-                  onTap: () {},
-                ),
-                MyListTile(
-                  title: 'Shuffler',
-                  icon: Icons.shuffle,
-                  onTap: () {
-                    /*Navigator.pop(context);
-                      Navigator.of(context).push(new MaterialPageRoute(
-                          builder: (context) => shufflerBuilder()));*/
-                  },
-                ),
-                MyListTile(
-                  title: 'Mistakes',
-                  icon: Icons.info_outline,
-                  onTap: () {
-                    /* Navigator.pop(context);
-                      Navigator.of(context).push(new MaterialPageRoute(
-                          builder: (context) => mistakePage()));*/
-                  },
-                ),
-                MyListTile(
-                  title: 'Important links',
-                  icon: Icons.border_color,
-                  onTap: () {
-                    /*Navigator.of(context).push(new MaterialPageRoute(
-                          builder: (context) => importantLinks()));*/
-                  },
-                ),
-              ]),
-            ),
           ),
-          Container(
-              child: Align(
-                  alignment: FractionalOffset.bottomCenter,
-                  child: Column(
-                    children: <Widget>[
-                      Divider(),
-                      MyButton(
-                        onTap: () {},
-                        label: "Logout",
-                        color: primaryColor,
-                        height: h * 0.1,
-                      )
-                    ],
-                  ))),
-        ],
+        ),
       ),
     );
   }

@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:virtual_assistant/app/data/Constants.dart';
+import '../modules/DailyTracker/views/daily_tracker_view.dart';
+import '../modules/RegisterUser/views/register_user_view.dart';
+import '../modules/auth/LoginScreen/views/login_screen_view.dart';
+import 'my_flutter_app_icons.dart';
 
 class MyButton extends StatelessWidget {
   const MyButton(
@@ -130,24 +136,336 @@ class MyTextField extends StatelessWidget {
   }
 }
 
-
 class MyListTile extends StatelessWidget {
   final Function()? onTap;
   final IconData? icon;
   final String? title;
   final String? imageString;
+  final double? iconSize;
 
-  const MyListTile({Key? key, this.onTap, this.icon, this.title, this.imageString}) : super(key: key);
-
+  const MyListTile(
+      {Key? key,
+      this.onTap,
+      this.icon,
+      this.title,
+      this.imageString,
+      this.iconSize})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return  ListTile(
+    return ListTile(
       onTap: onTap,
-      leading:icon == null?Image.asset("assets/icons/$imageString" , color: primaryColor,height: 26,): Icon(icon , color: primaryColor,size: 26,),
+      leading: icon == null
+          ? Image.asset(
+              "assets/icons/$imageString",
+              color: primaryColor,
+              height: 26,
+            )
+          : Icon(
+              icon,
+              color: primaryColor,
+              size: iconSize ?? 28,
+            ),
       title: Text(title!),
-
     );
   }
 }
 
+class MyDrawer extends StatelessWidget {
+  const MyDrawer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: Column(
+        children: <Widget>[
+          DrawerHeader(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              CircleAvatar(
+                child: Image.asset(
+                  'assets/icons/google.png',
+                  height: h * 0.08,
+                ),
+                backgroundColor: Colors.transparent,
+                minRadius: w * 0.1,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text("User Name ")
+            ],
+          )),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(children: <Widget>[
+                MyListTile(
+                  title: 'Profile',
+                  icon: DrawerIcon.profile,
+                  onTap: () {},
+                ),
+                MyListTile(
+                  title: 'Calendar Notes',
+                  icon: DrawerIcon.appointment1,
+                  onTap: () {},
+                ),
+                MyListTile(
+                  title: 'Individual Tracker',
+                  icon: DrawerIcon.individualtracker,
+                  onTap: () {},
+                ),
+                MyListTile(
+                  title: 'Diary',
+                  icon: DrawerIcon.diary,
+                  onTap: () {},
+                ),
+                MyListTile(
+                  title: 'Daily Reminder',
+                  icon: DrawerIcon.appointment2,
+                  onTap: () {},
+                ),
+                MyListTile(
+                  title: 'My Bank Details',
+                  icon: DrawerIcon.passbook,
+                  onTap: () {
+                    /*Navigator.pop(context);
+                      Navigator.of(context).push(new MaterialPageRoute(
+                          builder: (context) => shufflerBuilder()));*/
+                  },
+                ),
+                MyListTile(
+                  title: 'Important Days',
+                  icon: DrawerIcon.appointment3,
+                  onTap: () {
+                    /* Navigator.pop(context);
+                      Navigator.of(context).push(new MaterialPageRoute(
+                          builder: (context) => mistakePage()));*/
+                  },
+                ),
+                MyListTile(
+                  title: 'Timer',
+                  icon: DrawerIcon.timer,
+                  onTap: () {
+                    /*Navigator.of(context).push(new MaterialPageRoute(
+                          builder: (context) => importantLinks()));*/
+                  },
+                ),
+                MyListTile(
+                  title: 'Notes',
+                  icon: DrawerIcon.notes,
+                  onTap: () {},
+                ),
+                MyListTile(
+                  title: 'Calculator',
+                  icon: DrawerIcon.calculator,
+                  onTap: () {
+                    /*Navigator.pop(context);
+                      Navigator.of(context).push(new MaterialPageRoute(
+                          builder: (context) => shufflerBuilder()));*/
+                  },
+                ),
+                MyListTile(
+                  title: 'Language Selection',
+                  icon: DrawerIcon.language,
+                  onTap: () {
+                    /* Navigator.pop(context);
+                      Navigator.of(context).push(new MaterialPageRoute(
+                          builder: (context) => mistakePage()));*/
+                  },
+                ),
+                MyListTile(
+                  title: 'Share & Rate Us',
+                  icon: DrawerIcon.rating,
+                  onTap: () {
+                    /*Navigator.of(context).push(new MaterialPageRoute(
+                          builder: (context) => importantLinks()));*/
+                  },
+                ),
+              ]),
+            ),
+          ),
+          Container(
+              child: Align(
+                  alignment: FractionalOffset.bottomCenter,
+                  child: Column(
+                    children: <Widget>[
+                      MyButton(
+                        fontColor: Colors.white,
+                        onTap: () {
+                          Get.offAll(() => LoginScreenView());
+                        },
+                        label: "Logout",
+                        color: primaryColor,
+                        height: h * 0.06,
+                      )
+                    ],
+                  ))),
+        ],
+      ),
+    );
+  }
+}
+
+class MyBottomNavigation extends StatelessWidget {
+  MyBottomNavigation({Key? key}) : super(key: key);
+  final RxInt selected = 1.obs;
+  final _controller = PersistentTabController(
+    initialIndex: 0,
+  );
+
+  List<PersistentBottomNavBarItem> _navBarsItems() {
+    return [
+      PersistentBottomNavBarItem(
+          title: "Daily Tracker",
+          iconSize: 25,
+          icon: Icon(BottomNavIcon.tracker),
+          activeColorPrimary: (drawerClicked.value == false)
+              ? primaryColor
+              : Colors.transparent,
+          inactiveColorPrimary: secondaryColor),
+      PersistentBottomNavBarItem(
+        iconSize: 25,
+        title: "Todo List",
+        icon: Icon(
+          BottomNavIcon.todo,
+        ),
+        activeColorPrimary: primaryColor,
+        inactiveColorPrimary: secondaryColor,
+      ),
+      PersistentBottomNavBarItem(
+        iconSize: 25,
+        title: "Appointment",
+        icon: Icon(BottomNavIcon.appointment),
+        activeColorPrimary: primaryColor,
+        inactiveColorPrimary: secondaryColor,
+      ),
+      PersistentBottomNavBarItem(
+        title: "Wallet",
+        iconSize: 25,
+        icon: Icon(BottomNavIcon.wallet),
+        activeColorPrimary: primaryColor,
+        inactiveColorPrimary: secondaryColor,
+      ),
+    ];
+  }
+
+  List<Widget> _buildScreens() {
+    return [
+      DailyTrackerView(),
+      RegisterUserView(),
+      LoginScreenView(),
+      RegisterUserView(),
+    ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () => PersistentTabView(
+        context,
+        controller: _controller,
+        items: _navBarsItems(),
+        hideNavigationBar: drawerClicked.value,
+        navBarStyle: NavBarStyle.style3,
+        onItemSelected: (value) {
+          switch (value) {
+            case 0:
+              selected.value = 1;
+              print(selected);
+              print("1 selected");
+              break;
+            case 1:
+              selected.value = 2;
+              print(" 2 selected");
+              break;
+            case 2:
+              selected.value = 3;
+              print(" 3 selected");
+              break;
+            case 3:
+              selected.value = 4;
+              print("4  selected");
+          }
+        },
+        screens: _buildScreens(),
+        decoration: NavBarDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: secondaryColor,
+                offset: const Offset(
+                  5.0,
+                  5.0,
+                ),
+                blurRadius: 6.0,
+                spreadRadius: 2.0,
+              ), //BoxShadow
+              BoxShadow(
+                color: secondaryColor,
+                offset: const Offset(5.0, 5.0),
+                blurRadius: 6.0,
+                spreadRadius: 0.0,
+              ),
+            ],
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(15), topRight: Radius.circular(15))),
+      ),
+    );
+  }
+}
+
+class MyElevatedButton extends StatelessWidget {
+  final String? text;
+  final Function()? onTap;
+
+  const MyElevatedButton({Key? key, this.text, this.onTap}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 10),
+      child: ElevatedButton(
+        onPressed: onTap,
+        child: Text(
+          text!,
+          style: TextStyle(color: primaryColor),
+        ),
+        style: ElevatedButton.styleFrom(
+          fixedSize: Size(w * 0.25, h * 0.02),
+          backgroundColor: Colors.white,
+        ),
+      ),
+    );
+  }
+}
+
+final RxInt indexValue = 0.obs;
+
+class MyTabBar extends StatelessWidget {
+  final int length;
+  final List<Widget> widget;
+  final List<Widget> tabBarWidget;
+
+  MyTabBar(
+      {Key? key,
+      required this.length,
+      required this.widget,
+      required this.tabBarWidget})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+        initialIndex: indexValue.value,
+        length: length,
+        child: Scaffold(
+            appBar: AppBar(
+              title: Text("General"),
+              bottom: TabBar(tabs: widget),
+            ),
+            body: TabBarView(
+              children: tabBarWidget,
+            )));
+  }
+}
