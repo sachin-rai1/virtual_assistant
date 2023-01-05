@@ -37,4 +37,7 @@ flutter:
    - family: DrawerIcon
      fonts:
       - asset: assets/font/DrawerIcon.ttf
+   - family: UpperScrollBar
+     fonts:
+      - asset: assets/font/UpperScrollBar.ttf
 

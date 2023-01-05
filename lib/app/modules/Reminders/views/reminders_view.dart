@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:virtual_assistant/app/data/Widgets.dart';
 import 'package:virtual_assistant/app/data/my_flutter_app_icons.dart';
-
 import '../controllers/reminders_controller.dart';
 
 class RemindersView extends GetView<RemindersController> {

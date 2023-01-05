@@ -1,5 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:virtual_assistant/app/modules/SplashScreen/views/splash_screen_view.dart';
 import 'package:virtual_assistant/app/modules/auth/LoginScreen/views/login_screen_view.dart';
@@ -7,8 +8,13 @@ import 'package:virtual_assistant/app/modules/auth/LoginScreen/views/login_scree
 import 'app/routes/app_pages.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(
     GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "Application",
       home: AnimatedSplashScreen(
         splash: SplashScreenView(),

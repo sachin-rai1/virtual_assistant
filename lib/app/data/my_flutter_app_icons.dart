@@ -31,3 +31,22 @@ class DrawerIcon {
   static const IconData rating = IconData(0xe80a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData timer = IconData(0xe80b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
+
+class UpperScrollBar {
+  UpperScrollBar._();
+
+  static const _kFontFam = 'UpperScrollBar';
+  static const String? _kFontPkg = null;
+
+  static const IconData bell = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData phone = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData shopping = IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData event = IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData pets = IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData nightlife = IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData family = IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData glasswater = IconData(0xe807, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData todo = IconData(0xe808, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData billline = IconData(0xe809, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData medicine_bottle = IconData(0xe80a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+}

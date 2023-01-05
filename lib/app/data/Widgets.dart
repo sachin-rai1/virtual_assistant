@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -418,23 +419,24 @@ class MyBottomNavigation extends StatelessWidget {
 class MyElevatedButton extends StatelessWidget {
   final String? text;
   final Function()? onTap;
+  final IconData iconData;
 
-  const MyElevatedButton({Key? key, this.text, this.onTap}) : super(key: key);
+  const MyElevatedButton({Key? key, this.text, this.onTap, required this.iconData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 10),
-      child: ElevatedButton(
+      child: ElevatedButton.icon(
         onPressed: onTap,
-        child: Text(
+        label: Text(
           text!,
           style: TextStyle(color: primaryColor),
         ),
         style: ElevatedButton.styleFrom(
-          fixedSize: Size(w * 0.25, h * 0.02),
+          shape: StadiumBorder(),
           backgroundColor: Colors.white,
-        ),
+        ), icon:Icon(iconData , color: primaryColor, size: 22,),
       ),
     );
   }
