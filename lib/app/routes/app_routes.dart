@@ -10,6 +10,9 @@ abstract class Routes {
   static const REGISTER_USER = _Paths.REGISTER_USER;
   static const DAILY_TRACKER = _Paths.DAILY_TRACKER;
   static const REMINDERS = _Paths.REMINDERS;
+  static const TODO_LIST = _Paths.TODO_LIST;
+  static const APPOINTMENT = _Paths.APPOINTMENT;
+  static const EXPENSES = _Paths.EXPENSES;
 }
 
 abstract class _Paths {
@@ -19,4 +22,7 @@ abstract class _Paths {
   static const REGISTER_USER = '/register-user';
   static const DAILY_TRACKER = '/daily-tracker';
   static const REMINDERS = '/reminders';
+  static const TODO_LIST = '/todo-list';
+  static const APPOINTMENT = '/appointment';
+  static const EXPENSES = '/expenses';
 }

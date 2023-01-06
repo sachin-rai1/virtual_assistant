@@ -42,16 +42,17 @@ class RegisterUserView extends GetView<RegisterUserController> {
                 ),
                 MyTextField(
                   height: h * 0.06,
-                  obSecure: false,
                   borderRadius: 10,
                   hint: "Email",
                 ),
+                SizedBox(height: h * 0.01,),
                 MyTextField(
                   height: h * 0.06,
                   obSecure: true,
                   borderRadius: 10,
                   hint: "Password",
                 ),
+                SizedBox(height: h * 0.01,),
                 MyTextField(
                   height: h * 0.06,
                   obSecure: true,

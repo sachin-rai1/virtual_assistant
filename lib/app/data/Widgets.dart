@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:virtual_assistant/app/data/Constants.dart';
+import 'package:virtual_assistant/app/modules/Appointment/views/appointment_view.dart';
+import 'package:virtual_assistant/app/modules/Expenses/views/expenses_view.dart';
+import 'package:virtual_assistant/app/modules/TodoList/views/todo_list_view.dart';
 import '../modules/DailyTracker/views/daily_tracker_view.dart';
 import '../modules/RegisterUser/views/register_user_view.dart';
 import '../modules/auth/LoginScreen/views/login_screen_view.dart';
@@ -19,7 +23,8 @@ class MyButton extends StatelessWidget {
       this.color,
       this.iconData,
       this.textAlign,
-      this.fontColor})
+      this.fontColor,
+      this.gradient})
       : super(key: key);
 
   final VoidCallback? onTap;
@@ -32,6 +37,7 @@ class MyButton extends StatelessWidget {
 
   final TextAlign? textAlign;
   final Color? fontColor;
+  final Gradient? gradient;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +48,7 @@ class MyButton extends StatelessWidget {
         width: width,
         height: height,
         decoration: BoxDecoration(
+          gradient: gradient,
           borderRadius: (circularInt == null)
               ? BorderRadius.circular(0)
               : BorderRadius.circular(circularInt!),
@@ -75,9 +82,10 @@ class MyTextField extends StatelessWidget {
       this.keyBoardType,
       this.focusNode,
       this.borderRadius,
-      required this.obSecure,
+      this.obSecure,
       this.height,
-      this.width})
+      this.width,
+      this.validator})
       : super(key: key);
 
   final Widget? widget;
@@ -86,13 +94,14 @@ class MyTextField extends StatelessWidget {
   final String? label;
   final TextEditingController? controller;
   final bool? readOnly;
-  final bool obSecure;
+  final bool? obSecure;
   final TextStyle? hintstyle;
   final TextInputType? keyBoardType;
   final FocusNode? focusNode;
   final double? borderRadius;
   final double? height;
   final double? width;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -101,10 +110,10 @@ class MyTextField extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            (label == null) ? const Text("") : Text(label!),
-            SizedBox(
-              height: (label == null) ? 0 : 5,
-            ),
+            // (label == null) ? const Text("") : Text(label!),
+            // SizedBox(
+            //   height: (label == null) ? 0 : 5,
+            // ),
             SizedBox(
               height: height,
               width: width,
@@ -113,18 +122,19 @@ class MyTextField extends StatelessWidget {
                 shadowColor: Colors.white,
                 color: Colors.white,
                 child: TextFormField(
+                  validator: validator,
                   focusNode: focusNode,
                   keyboardType: keyBoardType,
                   controller: controller,
                   onTap: onTap,
                   readOnly: readOnly ?? false,
-                  obscureText: obSecure,
+                  obscureText: obSecure ?? false,
                   decoration: InputDecoration(
                       suffixIcon: widget,
                       contentPadding: const EdgeInsets.only(left: 10),
                       border: OutlineInputBorder(
                         borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(borderRadius!),
+                        borderRadius: BorderRadius.circular(borderRadius??0),
                       ),
                       hintText: hint,
                       hintStyle: hintstyle),
@@ -293,6 +303,10 @@ class MyDrawer extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       MyButton(
+                        gradient: LinearGradient(colors: [
+                          Color(0xFFFF8855),
+                          Color(0xFFF4A242),
+                        ]),
                         fontColor: Colors.white,
                         onTap: () {
                           Get.offAll(() => LoginScreenView());
@@ -355,9 +369,9 @@ class MyBottomNavigation extends StatelessWidget {
   List<Widget> _buildScreens() {
     return [
       DailyTrackerView(),
-      RegisterUserView(),
-      LoginScreenView(),
-      RegisterUserView(),
+      TodoListView(),
+      AppointmentView(),
+      ExpensesView(),
     ];
   }
 
@@ -419,9 +433,10 @@ class MyBottomNavigation extends StatelessWidget {
 class MyElevatedButton extends StatelessWidget {
   final String? text;
   final Function()? onTap;
-  final IconData iconData;
+  final IconData? iconData;
 
-  const MyElevatedButton({Key? key, this.text, this.onTap, required this.iconData}) : super(key: key);
+  const MyElevatedButton({Key? key, this.text, this.onTap, this.iconData})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -436,13 +451,16 @@ class MyElevatedButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           shape: StadiumBorder(),
           backgroundColor: Colors.white,
-        ), icon:Icon(iconData , color: primaryColor, size: 22,),
+        ),
+        icon: Icon(
+          iconData,
+          color: primaryColor,
+          size: 22,
+        ),
       ),
     );
   }
 }
-
-final RxInt indexValue = 0.obs;
 
 class MyTabBar extends StatelessWidget {
   final int length;
@@ -469,5 +487,55 @@ class MyTabBar extends StatelessWidget {
             body: TabBarView(
               children: tabBarWidget,
             )));
+  }
+}
+
+class MyScaffold extends StatelessWidget {
+  final Widget? body;
+  final Widget? floatingActionButton;
+  final Widget? appBarTitle;
+  final ShapeBorder? appBarShapeBorder;
+  final PreferredSizeWidget? appBarBottom;
+  final List<Widget>? appBarAction;
+  final double? appToolbarHeight;
+
+  const MyScaffold(
+      {Key? key,
+      this.body,
+      this.floatingActionButton,
+      this.appBarTitle,
+      this.appBarShapeBorder,
+      this.appBarBottom, this.appBarAction, this.appToolbarHeight, })
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      drawer: MyDrawer(),
+      onDrawerChanged: (isOpen) {
+        drawerClicked.value = isOpen;
+      },
+      resizeToAvoidBottomInset: true,
+      appBar: AppBar(
+
+        shape: appBarShapeBorder ??
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30)),
+            ),
+        toolbarHeight:appToolbarHeight?? h * 0.1,
+        actions: appBarAction,
+        elevation: 0,
+        shadowColor: primaryColor,
+        backgroundColor: primaryColor,
+        title: appBarTitle,
+        primary: false,
+        centerTitle: true,
+        bottom: appBarBottom,
+      ),
+      body: body,
+      floatingActionButton: floatingActionButton,
+    );
   }
 }

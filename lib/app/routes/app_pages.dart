@@ -1,15 +1,21 @@
 import 'package:get/get.dart';
 
+import '../modules/Appointment/bindings/appointment_binding.dart';
+import '../modules/Appointment/views/appointment_view.dart';
 import '../modules/DailyTracker/bindings/daily_tracker_binding.dart';
 import '../modules/DailyTracker/bindings/daily_tracker_binding.dart';
 import '../modules/DailyTracker/views/daily_tracker_view.dart';
 import '../modules/DailyTracker/views/daily_tracker_view.dart';
+import '../modules/Expenses/bindings/expenses_binding.dart';
+import '../modules/Expenses/views/expenses_view.dart';
 import '../modules/RegisterUser/bindings/register_user_binding.dart';
 import '../modules/RegisterUser/views/register_user_view.dart';
 import '../modules/Reminders/bindings/reminders_binding.dart';
 import '../modules/Reminders/views/reminders_view.dart';
 import '../modules/SplashScreen/bindings/splash_screen_binding.dart';
 import '../modules/SplashScreen/views/splash_screen_view.dart';
+import '../modules/TodoList/bindings/todo_list_binding.dart';
+import '../modules/TodoList/views/todo_list_view.dart';
 import '../modules/auth/LoginScreen/bindings/login_screen_binding.dart';
 import '../modules/auth/LoginScreen/views/login_screen_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -45,12 +51,12 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.DAILY_TRACKER,
-      page: () => const DailyTrackerView(),
+      page: () =>  DailyTrackerView(),
       binding: DailyTrackerBinding(),
       children: [
         GetPage(
           name: _Paths.DAILY_TRACKER,
-          page: () => const DailyTrackerView(),
+          page: () =>  DailyTrackerView(),
           binding: DailyTrackerBinding(),
         ),
       ],
@@ -59,6 +65,21 @@ class AppPages {
       name: _Paths.REMINDERS,
       page: () => const RemindersView(),
       binding: RemindersBinding(),
+    ),
+    GetPage(
+      name: _Paths.TODO_LIST,
+      page: () => const TodoListView(),
+      binding: TodoListBinding(),
+    ),
+    GetPage(
+      name: _Paths.APPOINTMENT,
+      page: () => const AppointmentView(),
+      binding: AppointmentBinding(),
+    ),
+    GetPage(
+      name: _Paths.EXPENSES,
+      page: () => const ExpensesView(),
+      binding: ExpensesBinding(),
     ),
   ];
 }

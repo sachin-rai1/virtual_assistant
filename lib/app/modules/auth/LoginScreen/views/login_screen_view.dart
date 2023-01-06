@@ -42,10 +42,10 @@ class LoginScreenView extends GetView<LoginScreenController> {
                     ),
                     MyTextField(
                       height: h * 0.06,
-                      obSecure: false,
                       borderRadius: 10,
                       hint: "Email",
                     ),
+                    SizedBox(height: h * 0.01,),
                     MyTextField(
                       height: h * 0.06,
                       obSecure: true,

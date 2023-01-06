@@ -21,6 +21,7 @@ void main() {
         nextScreen: LoginScreenView(),
         splashTransition: SplashTransition.decoratedBoxTransition,
       ),
+
       getPages: AppPages.routes,
     ),
   );
