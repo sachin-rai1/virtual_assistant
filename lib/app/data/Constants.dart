@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:get/get.dart';
 
 double h = Get.mediaQuery.size.height;
@@ -10,4 +9,4 @@ String fontMedium = "";
 String fontBold = "";
 String fontRegular = "";
 final RxInt indexValue = 0.obs;
-
+RxBool drawerClicked = false.obs;

@@ -431,11 +431,15 @@ class MyBottomNavigation extends StatelessWidget {
 }
 
 class MyElevatedButton extends StatelessWidget {
-  final String? text;
+  final String text;
   final Function()? onTap;
   final IconData? iconData;
+  final Color? iconColor;
+  final Color? textColor;
+  final OutlinedBorder? shapeBorder;
+  final double? elevation;
 
-  const MyElevatedButton({Key? key, this.text, this.onTap, this.iconData})
+  const MyElevatedButton({Key? key, required this.text, this.onTap, this.iconData, this.iconColor, this.textColor, this.shapeBorder, this.elevation})
       : super(key: key);
 
   @override
@@ -445,16 +449,17 @@ class MyElevatedButton extends StatelessWidget {
       child: ElevatedButton.icon(
         onPressed: onTap,
         label: Text(
-          text!,
-          style: TextStyle(color: primaryColor),
+          text,
+          style: TextStyle(color:textColor?? primaryColor),
         ),
         style: ElevatedButton.styleFrom(
-          shape: StadiumBorder(),
+          elevation: elevation,
+          shape:shapeBorder?? StadiumBorder(),
           backgroundColor: Colors.white,
         ),
         icon: Icon(
           iconData,
-          color: primaryColor,
+          color:iconColor?? primaryColor,
           size: 22,
         ),
       ),
@@ -517,7 +522,6 @@ class MyScaffold extends StatelessWidget {
       },
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-
         shape: appBarShapeBorder ??
             RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
