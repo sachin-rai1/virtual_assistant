@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:virtual_assistant/app/data/Constants.dart';
 import 'package:virtual_assistant/app/data/Widgets.dart';
-import 'package:virtual_assistant/app/data/my_flutter_app_icons.dart';
 import '../controllers/reminders_controller.dart';
 
 class RemindersView extends GetView<RemindersController> {
@@ -9,116 +9,53 @@ class RemindersView extends GetView<RemindersController> {
 
   @override
   Widget build(BuildContext context) {
-    return MyTabBar(length: 11, widget: <Widget>[
-      MyElevatedButton(
-          iconData: UpperScrollBar.bell,
-          // onTap: () {
-          //   Get.to(() => RemindersView(),
-          //       arguments: indexValue.value = 0);
-          // },
-          text: "General"),
-      MyElevatedButton(
-          iconData: UpperScrollBar.glasswater,
-          // onTap: () {
-          //   Get.to(() => RemindersView(),
-          //       arguments: indexValue.value = 1);
-          // },
-          text: "Water"),
-      MyElevatedButton(
-        onTap: () {},
-        text: "Call",
-        iconData: UpperScrollBar.phone,
-      ),
-      MyElevatedButton(
-        onTap: () {},
-        text: "Event",
-        iconData: UpperScrollBar.event,
-      ),
-      MyElevatedButton(
-        onTap: () {},
-        text: "Bills",
-        iconData: UpperScrollBar.billline,
-      ),
-      MyElevatedButton(
-        onTap: () {},
-        text: "Medicine",
-        iconData: UpperScrollBar.medicine_bottle,
-      ),
-      MyElevatedButton(
-        onTap: () {},
-        text: "Shopping",
-        iconData: UpperScrollBar.shopping,
-      ),
-      MyElevatedButton(
-        onTap: () {},
-        text: "Things Todo",
-        iconData: UpperScrollBar.todo,
-      ),
-      MyElevatedButton(
-        onTap: () {},
-        text: "Pet Care",
-        iconData: UpperScrollBar.pets,
-      ),
-      MyElevatedButton(
-        onTap: () {},
-        text: "Family Care",
-        iconData: UpperScrollBar.family,
-      ),
-    ], tabBarWidget: <Widget>[
-      MyElevatedButton(
-          iconData: UpperScrollBar.bell,
-          // onTap: () {
-          //   Get.to(() => RemindersView(),
-          //       arguments: indexValue.value = 0);
-          // },
-          text: "General"),
-      MyElevatedButton(
-          iconData: UpperScrollBar.glasswater,
-          // onTap: () {
-          //   Get.to(() => RemindersView(),
-          //       arguments: indexValue.value = 1);
-          // },
-          text: "Water"),
-      MyElevatedButton(
-        onTap: () {},
-        text: "Call",
-        iconData: UpperScrollBar.phone,
-      ),
-      MyElevatedButton(
-        onTap: () {},
-        text: "Event",
-        iconData: UpperScrollBar.event,
-      ),
-      MyElevatedButton(
-        onTap: () {},
-        text: "Bills",
-        iconData: UpperScrollBar.billline,
-      ),
-      MyElevatedButton(
-        onTap: () {},
-        text: "Medicine",
-        iconData: UpperScrollBar.medicine_bottle,
-      ),
-      MyElevatedButton(
-        onTap: () {},
-        text: "Shopping",
-        iconData: UpperScrollBar.shopping,
-      ),
-      MyElevatedButton(
-        onTap: () {},
-        text: "Things Todo",
-        iconData: UpperScrollBar.todo,
-      ),
-      MyElevatedButton(
-        onTap: () {},
-        text: "Pet Care",
-        iconData: UpperScrollBar.pets,
-      ),
-      MyElevatedButton(
-        onTap: () {},
-        text: "Family Care",
-        iconData: UpperScrollBar.family,
-      ),
-    ]);
+    Get.put(RemindersController());
+    return MyTabBar(bottomWidget: controller.myTabs,
+        tabBarWidget: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(top: 25, left: w / 2),
+            child: Text("1"),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 25, left: w / 2),
+            child: Text("2"),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 25, left: w / 2),
+            child: Text("3"),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 25, left: w / 2),
+            child: Text("4"),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 25, left: w / 2),
+            child: Text("5"),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 25, left: w / 2),
+            child: Text("6"),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 25, left: w / 2),
+            child: Text("7"),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 25, left: w / 2),
+            child: Text("8"),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 25, left: w / 2),
+            child: Text("9"),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 25, left: w / 2),
+            child: Text("10"),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 25, left: w / 2),
+            child: Text("11"),
+          ),
+        ], length: controller.myTabs.length);
   }
 }

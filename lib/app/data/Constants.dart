@@ -10,3 +10,4 @@ String fontBold = "";
 String fontRegular = "";
 final RxInt indexValue = 0.obs;
 RxBool drawerClicked = false.obs;
+RxInt selectedTabBar = 0.obs;

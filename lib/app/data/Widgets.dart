@@ -134,7 +134,7 @@ class MyTextField extends StatelessWidget {
                       contentPadding: const EdgeInsets.only(left: 10),
                       border: OutlineInputBorder(
                         borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(borderRadius??0),
+                        borderRadius: BorderRadius.circular(borderRadius ?? 0),
                       ),
                       hintText: hint,
                       hintStyle: hintstyle),
@@ -439,7 +439,15 @@ class MyElevatedButton extends StatelessWidget {
   final OutlinedBorder? shapeBorder;
   final double? elevation;
 
-  const MyElevatedButton({Key? key, required this.text, this.onTap, this.iconData, this.iconColor, this.textColor, this.shapeBorder, this.elevation})
+  const MyElevatedButton(
+      {Key? key,
+      required this.text,
+      this.onTap,
+      this.iconData,
+      this.iconColor,
+      this.textColor,
+      this.shapeBorder,
+      this.elevation})
       : super(key: key);
 
   @override
@@ -450,16 +458,16 @@ class MyElevatedButton extends StatelessWidget {
         onPressed: onTap,
         label: Text(
           text,
-          style: TextStyle(color:textColor?? primaryColor),
+          style: TextStyle(color: textColor ?? primaryColor),
         ),
         style: ElevatedButton.styleFrom(
           elevation: elevation,
-          shape:shapeBorder?? StadiumBorder(),
+          shape: shapeBorder ?? StadiumBorder(),
           backgroundColor: Colors.white,
         ),
         icon: Icon(
           iconData,
-          color:iconColor?? primaryColor,
+          color: iconColor ?? primaryColor,
           size: 22,
         ),
       ),
@@ -469,14 +477,16 @@ class MyElevatedButton extends StatelessWidget {
 
 class MyTabBar extends StatelessWidget {
   final int length;
-  final List<Widget> widget;
+  final List<Widget> bottomWidget;
   final List<Widget> tabBarWidget;
+  final TabController? tabController;
 
   MyTabBar(
       {Key? key,
       required this.length,
-      required this.widget,
-      required this.tabBarWidget})
+      required this.tabBarWidget,
+      required this.bottomWidget,
+      this.tabController})
       : super(key: key);
 
   @override
@@ -486,8 +496,30 @@ class MyTabBar extends StatelessWidget {
         length: length,
         child: Scaffold(
             appBar: AppBar(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(25),
+                      bottomLeft: Radius.circular(25))),
+              toolbarHeight: h * 0.12,
+              backgroundColor: primaryColor,
+              centerTitle: true,
               title: Text("General"),
-              bottom: TabBar(tabs: widget),
+              bottom: PreferredSize(
+                preferredSize: Size.zero,
+                child: Transform.translate(
+                    offset: Offset(0, h * 0.025),
+                    child: TabBar(
+                        onTap: (tabBar) {
+                          selectedTabBar.value = tabBar;
+
+                        },
+
+                        physics: BouncingScrollPhysics(),
+                        indicatorColor: Colors.transparent,
+                        tabs: bottomWidget,
+                        controller: tabController,
+                        isScrollable: true)),
+              ),
             ),
             body: TabBarView(
               children: tabBarWidget,
@@ -504,14 +536,16 @@ class MyScaffold extends StatelessWidget {
   final List<Widget>? appBarAction;
   final double? appToolbarHeight;
 
-  const MyScaffold(
-      {Key? key,
-      this.body,
-      this.floatingActionButton,
-      this.appBarTitle,
-      this.appBarShapeBorder,
-      this.appBarBottom, this.appBarAction, this.appToolbarHeight, })
-      : super(key: key);
+  const MyScaffold({
+    Key? key,
+    this.body,
+    this.floatingActionButton,
+    this.appBarTitle,
+    this.appBarShapeBorder,
+    this.appBarBottom,
+    this.appBarAction,
+    this.appToolbarHeight,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -528,7 +562,7 @@ class MyScaffold extends StatelessWidget {
                   bottomLeft: Radius.circular(30),
                   bottomRight: Radius.circular(30)),
             ),
-        toolbarHeight:appToolbarHeight?? h * 0.1,
+        toolbarHeight: appToolbarHeight ?? h * 0.1,
         actions: appBarAction,
         elevation: 0,
         shadowColor: primaryColor,
@@ -540,6 +574,70 @@ class MyScaffold extends StatelessWidget {
       ),
       body: body,
       floatingActionButton: floatingActionButton,
+    );
+  }
+}
+
+class MyAppBar extends StatelessWidget {
+  final Widget? child;
+
+  const MyAppBar({Key? key, this.child}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      fit: StackFit.loose,
+      children: <Widget>[
+        Container(
+          width: w,
+          height: 40,
+          color: Colors.transparent,
+        ),
+        Container(
+          width: w,
+          height: 30,
+          color: Colors.transparent,
+        ),
+        Container(
+          width: w,
+          height: 20,
+          color: Colors.blue,
+        ),
+        Positioned(
+            bottom: 13,
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  InkWell(onTap: () {}, child: Text("Hii")),
+                  SizedBox(
+                    width: 100,
+                  ),
+                  InkWell(onTap: () {}, child: Text("Sachin")),
+                  SizedBox(
+                    width: 100,
+                  ),
+                  InkWell(onTap: () {}, child: Text("How")),
+                  SizedBox(
+                    width: 100,
+                  ),
+                  InkWell(onTap: () {}, child: Text("Are")),
+                  SizedBox(
+                    width: 100,
+                  ),
+                  InkWell(onTap: () {}, child: Text("You")),
+                  SizedBox(
+                    width: 100,
+                  ),
+                  InkWell(onTap: () {}, child: Text("Bro")),
+                  SizedBox(
+                    width: 100,
+                  ),
+                ],
+              ),
+            ))
+      ],
     );
   }
 }

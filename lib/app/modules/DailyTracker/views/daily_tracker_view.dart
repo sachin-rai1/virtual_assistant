@@ -10,7 +10,6 @@ import '../../../data/my_flutter_app_icons.dart';
 import '../../Reminders/views/reminders_view.dart';
 import '../controllers/daily_tracker_controller.dart';
 
-
 class DailyTrackerView extends GetView<DailyTrackerController> {
   DailyTrackerView({Key? key}) : super(key: key);
 
@@ -18,10 +17,9 @@ class DailyTrackerView extends GetView<DailyTrackerController> {
 
   late String d2;
 
-
-
   @override
   Widget build(BuildContext context) {
+    Get.put(DailyTrackerController());
     final items = List<String>.generate(3, (i) => "Item ${i + 1}").obs;
     final toDoLen = List<String>.generate(3, (i) => "Item ${i + 1}").obs;
     final appointLen = List<String>.generate(3, (i) => "Item ${i + 1}").obs;
@@ -33,9 +31,7 @@ class DailyTrackerView extends GetView<DailyTrackerController> {
           padding: const EdgeInsets.only(right: 15, top: 10),
           child: InkWell(
             onTap: () {
-              Get.defaultDialog(
-                content: _calendar(context)
-              );
+              Get.defaultDialog(content: _calendar(context));
             },
             child: Image.asset(
               'assets/icons/calendar.png',
@@ -254,6 +250,7 @@ class DailyTrackerView extends GetView<DailyTrackerController> {
                             );
                           }),
                     ),
+
 
                     ///To DO List
                     Obx(
@@ -677,16 +674,22 @@ class DailyTrackerView extends GetView<DailyTrackerController> {
   }
 
   _calendar(BuildContext context) {
-
-     return AlertDialog(
-       content: DateTimePicker(
-         type: DateTimePickerType.Date,
-         onDateChanged: (date) {
-
-             d2 = DateFormat('dd MMM, yyyy').format(date);
-
-         },
-       ),
-     );
+    return Flexible(
+      child: Container(
+        height: h * 0.2,
+        width: w,
+        child: Center(
+          child: DateTimePicker(
+            initialSelectedDate: DateTime.now(),
+            datePickerTitle: "Pick a Date",
+            type: DateTimePickerType.Date,
+            onDateChanged: (date) {
+              d2 = DateFormat('dd-MM-yyyy').format(date);
+              print(d2);
+            },
+          ),
+        ),
+      ),
+    );
   }
 }
