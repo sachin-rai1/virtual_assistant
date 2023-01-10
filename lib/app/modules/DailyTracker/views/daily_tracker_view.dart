@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:virtual_assistant/app/data/Widgets.dart';
-import '../../../data/Constants.dart';
+import 'package:virtual_assistant/app/data/widgets.dart';
+import '../../../data/constants.dart';
 import '../../../data/my_flutter_app_icons.dart';
 import '../../Reminders/views/reminders_view.dart';
 import '../controllers/daily_tracker_controller.dart';
@@ -54,6 +54,7 @@ class DailyTrackerView extends GetView<DailyTrackerController> {
                     onTap: () {
                       Get.to(() => RemindersView(),
                           arguments: indexValue.value = 0);
+                      print("index value ${indexValue.value}");
                     },
                     text: "General"),
                 MyElevatedButton(
@@ -61,45 +62,78 @@ class DailyTrackerView extends GetView<DailyTrackerController> {
                     onTap: () {
                       Get.to(() => RemindersView(),
                           arguments: indexValue.value = 1);
+                      print("index value ${indexValue.value}");
                     },
                     text: "Water"),
                 MyElevatedButton(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => RemindersView(),
+                        arguments: indexValue.value = 2);
+                  },
                   text: "Call",
                   iconData: UpperScrollBar.phone,
                 ),
                 MyElevatedButton(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => RemindersView(),
+                        arguments: indexValue.value = 3);
+                  },
                   text: "Event",
                   iconData: UpperScrollBar.event,
                 ),
                 MyElevatedButton(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => RemindersView(),
+                        arguments: indexValue.value = 4);
+                  },
                   text: "Bills",
                   iconData: UpperScrollBar.billline,
                 ),
                 MyElevatedButton(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => RemindersView(),
+                        arguments: indexValue.value = 5);
+                  },
                   text: "Medicine",
                   iconData: UpperScrollBar.medicine_bottle,
                 ),
                 MyElevatedButton(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => RemindersView(),
+                        arguments: indexValue.value = 6);
+                  },
                   text: "Shopping",
                   iconData: UpperScrollBar.shopping,
                 ),
                 MyElevatedButton(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => RemindersView(),
+                        arguments: indexValue.value = 7);
+                  },
                   text: "Things Todo",
                   iconData: UpperScrollBar.todo,
                 ),
                 MyElevatedButton(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => RemindersView(),
+                        arguments: indexValue.value = 8);
+                  },
+                  text: "Life Style",
+                  iconData: UpperScrollBar.nightlife,
+                ),
+                MyElevatedButton(
+                  onTap: () {
+                    Get.to(() => RemindersView(),
+                        arguments: indexValue.value = 9);
+                  },
                   text: "Pet Care",
                   iconData: UpperScrollBar.pets,
                 ),
                 MyElevatedButton(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => RemindersView(),
+                        arguments: indexValue.value = 10);
+                  },
                   text: "Family Care",
                   iconData: UpperScrollBar.family,
                 ),

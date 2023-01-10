@@ -20,6 +20,28 @@ import '../modules/auth/LoginScreen/bindings/login_screen_binding.dart';
 import '../modules/auth/LoginScreen/views/login_screen_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/tabBarPages/BillTab/bindings/bill_tab_binding.dart';
+import '../modules/tabBarPages/BillTab/views/bill_tab_view.dart';
+import '../modules/tabBarPages/CallTab/bindings/call_tab_binding.dart';
+import '../modules/tabBarPages/CallTab/views/call_tab_view.dart';
+import '../modules/tabBarPages/EventTab/bindings/event_tab_binding.dart';
+import '../modules/tabBarPages/EventTab/views/event_tab_view.dart';
+import '../modules/tabBarPages/FamilyCareTab/bindings/family_care_tab_binding.dart';
+import '../modules/tabBarPages/FamilyCareTab/views/family_care_tab_view.dart';
+import '../modules/tabBarPages/GeneralTab/bindings/general_tab_binding.dart';
+import '../modules/tabBarPages/GeneralTab/views/general_tab_view.dart';
+import '../modules/tabBarPages/LifeStyleTab/bindings/life_style_tab_binding.dart';
+import '../modules/tabBarPages/LifeStyleTab/views/life_style_tab_view.dart';
+import '../modules/tabBarPages/MedicineTab/bindings/medicine_tab_binding.dart';
+import '../modules/tabBarPages/MedicineTab/views/medicine_tab_view.dart';
+import '../modules/tabBarPages/PetCareTab/bindings/pet_care_tab_binding.dart';
+import '../modules/tabBarPages/PetCareTab/views/pet_care_tab_view.dart';
+import '../modules/tabBarPages/ShoppingTab/bindings/shopping_tab_binding.dart';
+import '../modules/tabBarPages/ShoppingTab/views/shopping_tab_view.dart';
+import '../modules/tabBarPages/ThingsToDoTab/bindings/things_to_do_tab_binding.dart';
+import '../modules/tabBarPages/ThingsToDoTab/views/things_to_do_tab_view.dart';
+import '../modules/tabBarPages/WaterTab/bindings/water_tab_binding.dart';
+import '../modules/tabBarPages/WaterTab/views/water_tab_view.dart';
 
 part 'app_routes.dart';
 
@@ -51,12 +73,12 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.DAILY_TRACKER,
-      page: () =>  DailyTrackerView(),
+      page: () => DailyTrackerView(),
       binding: DailyTrackerBinding(),
       children: [
         GetPage(
           name: _Paths.DAILY_TRACKER,
-          page: () =>  DailyTrackerView(),
+          page: () => DailyTrackerView(),
           binding: DailyTrackerBinding(),
         ),
       ],
@@ -80,6 +102,61 @@ class AppPages {
       name: _Paths.EXPENSES,
       page: () => const ExpensesView(),
       binding: ExpensesBinding(),
+    ),
+    GetPage(
+      name: _Paths.FAMILY_CARE_TAB,
+      page: () => const FamilyCareTabView(),
+      binding: FamilyCareTabBinding(),
+    ),
+    GetPage(
+      name: _Paths.PET_CARE_TAB,
+      page: () => const PetCareTabView(),
+      binding: PetCareTabBinding(),
+    ),
+    GetPage(
+      name: _Paths.LIFE_STYLE_TAB,
+      page: () => const LifeStyleTabView(),
+      binding: LifeStyleTabBinding(),
+    ),
+    GetPage(
+      name: _Paths.THINGS_TO_DO_TAB,
+      page: () => const ThingsToDoTabView(),
+      binding: ThingsToDoTabBinding(),
+    ),
+    GetPage(
+      name: _Paths.SHOPPING_TAB,
+      page: () => const ShoppingTabView(),
+      binding: ShoppingTabBinding(),
+    ),
+    GetPage(
+      name: _Paths.MEDICINE_TAB,
+      page: () => const MedicineTabView(),
+      binding: MedicineTabBinding(),
+    ),
+    GetPage(
+      name: _Paths.BILL_TAB,
+      page: () => const BillTabView(),
+      binding: BillTabBinding(),
+    ),
+    GetPage(
+      name: _Paths.EVENT_TAB,
+      page: () => const EventTabView(),
+      binding: EventTabBinding(),
+    ),
+    GetPage(
+      name: _Paths.CALL_TAB,
+      page: () => const CallTabView(),
+      binding: CallTabBinding(),
+    ),
+    GetPage(
+      name: _Paths.WATER_TAB,
+      page: () => const WaterTabView(),
+      binding: WaterTabBinding(),
+    ),
+    GetPage(
+      name: _Paths.GENERAL_TAB,
+      page: () => const GeneralTabView(),
+      binding: GeneralTabBinding(),
     ),
   ];
 }

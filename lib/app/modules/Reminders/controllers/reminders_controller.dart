@@ -1,351 +1,174 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:virtual_assistant/app/data/Constants.dart';
+import 'package:virtual_assistant/app/data/constants.dart';
+import '../../../data/widgets.dart';
 import '../../../data/my_flutter_app_icons.dart';
 
 class RemindersController extends GetxController
     with GetSingleTickerProviderStateMixin {
-  late TabController controller;
-  int selectedIndex = 0;
+  late TabController tabcontroller;
+  static RxInt selectedIndex = indexValue;
+
 
   static double iconSize = 20;
   static double fontSize = 14;
 
   final List<Tab> myTabs = <Tab>[
     Tab(
-        child: Obx(
-      () => Card(
-        color: selectedTabBar.value == 0 ? Colors.green : Colors.red,
-        shape: StadiumBorder(),
-        child: Padding(
-          padding:
-              const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(
-                UpperScrollBar.bell,
-                color: primaryColor,
-                size: iconSize,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                "General",
-                style: TextStyle(
-                  fontSize: fontSize,
-                  color: primaryColor,
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    )),
+        child: Obx(() => MyTabBarWidget(
+              borderColor:
+                  selectedIndex.value == 0? Colors.white : Colors.transparent,
+          fontSize: fontSize,
+          icon: UpperScrollBar.bell,
+          text: "General",
+          iconColor: selectedIndex.value == 0 ? Colors.white : primaryColor,
+          iconSize: iconSize,
+          fontColor: selectedIndex.value == 0 ? Colors.white : primaryColor,
+          cardColor: selectedIndex.value == 0 ? primaryColor :Colors.white,
+            ))),
     Tab(
-        child: Card(
-      shape: StadiumBorder(),
-      child: Padding(
-        padding:
-            const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Icon(
-              UpperScrollBar.glasswater,
-              color: primaryColor,
-              size: iconSize,
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              "Water",
-              style: TextStyle(
-                color: primaryColor,
-                fontSize: 16,
-              ),
-            )
-          ],
-        ),
-      ),
-    )),
+        child: Obx(() => MyTabBarWidget(
+          borderColor:
+          selectedIndex.value == 1 ? Colors.white : Colors.transparent,
+          fontSize: fontSize,
+          icon: UpperScrollBar.glasswater,
+          text: "Water",
+          iconColor: selectedIndex.value == 1 ? Colors.white : primaryColor,
+          iconSize: iconSize,
+          fontColor: selectedIndex.value == 1 ? Colors.white : primaryColor,
+          cardColor: selectedIndex.value == 1 ? primaryColor :Colors.white,
+        ))),
     Tab(
-        child: Card(
-      shape: StadiumBorder(),
-      child: Padding(
-        padding:
-            const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              UpperScrollBar.phone,
-              color: primaryColor,
-              size: iconSize,
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              "Phone",
-              style: TextStyle(
-                color: primaryColor,
-                fontSize: fontSize,
-              ),
-            )
-          ],
-        ),
-      ),
-    )),
+        child: Obx(() => MyTabBarWidget(
+          borderColor:
+          selectedIndex.value == 2 ? Colors.white : Colors.transparent,
+          fontSize: fontSize,
+          icon: UpperScrollBar.phone,
+          text: "Call",
+          iconColor: selectedIndex.value == 2 ? Colors.white : primaryColor,
+          iconSize: iconSize,
+          fontColor: selectedIndex.value == 2 ? Colors.white : primaryColor,
+          cardColor: selectedIndex.value == 2 ? primaryColor :Colors.white,
+        ))),
     Tab(
-      child: Card(
-        shape: StadiumBorder(),
-        child: Padding(
-          padding:
-              const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                UpperScrollBar.event,
-                color: primaryColor,
-                size: iconSize,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                "Event",
-                style: TextStyle(
-                  color: primaryColor,
-                  fontSize: fontSize,
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
+      child: Obx(() => MyTabBarWidget(
+        borderColor:
+        selectedIndex.value == 3 ? Colors.white : Colors.transparent,
+        fontSize: fontSize,
+        icon: UpperScrollBar.event,
+        text: "Event",
+        iconColor: selectedIndex.value == 3 ? Colors.white : primaryColor,
+        iconSize: iconSize,
+        fontColor: selectedIndex.value == 3 ? Colors.white : primaryColor,
+        cardColor: selectedIndex.value == 3 ? primaryColor :Colors.white,
+      ))
     ),
     Tab(
-        child: Card(
-      shape: StadiumBorder(),
-      child: Padding(
-        padding:
-            const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              UpperScrollBar.billline,
-              color: primaryColor,
-              size: iconSize,
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              "Bill",
-              style: TextStyle(
-                color: primaryColor,
-                fontSize: fontSize,
-              ),
-            )
-          ],
-        ),
-      ),
-    )),
+        child: Obx(() => MyTabBarWidget(
+          borderColor:
+          selectedIndex.value == 4 ? Colors.white : Colors.transparent,
+          fontSize: fontSize,
+          icon: UpperScrollBar.billline,
+          text: "Bill",
+          iconColor: selectedIndex.value == 4 ? Colors.white : primaryColor,
+          iconSize: iconSize,
+          fontColor: selectedIndex.value == 4 ? Colors.white : primaryColor,
+          cardColor: selectedIndex.value == 4 ? primaryColor :Colors.white,
+        ))),
     Tab(
-        child: Card(
-      shape: StadiumBorder(),
-      child: Padding(
-        padding:
-            const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              UpperScrollBar.medicine_bottle,
-              color: primaryColor,
-              size: iconSize,
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              "Medicine",
-              style: TextStyle(
-                color: primaryColor,
-                fontSize: fontSize,
-              ),
-            )
-          ],
-        ),
-      ),
-    )),
+        child: Obx(() => MyTabBarWidget(
+          borderColor:
+          selectedIndex.value == 5 ? Colors.white : Colors.transparent,
+          fontSize: fontSize,
+          icon: UpperScrollBar.medicine_bottle,
+          text: "Medicine",
+          iconColor: selectedIndex.value == 5 ? Colors.white : primaryColor,
+          iconSize: iconSize,
+          fontColor: selectedIndex.value == 5 ? Colors.white : primaryColor,
+          cardColor: selectedIndex.value == 5 ? primaryColor :Colors.white,
+        ))),
     Tab(
-      child: Card(
-        shape: StadiumBorder(),
-        child: Padding(
-          padding:
-              const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                UpperScrollBar.shopping,
-                color: primaryColor,
-                size: iconSize,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                "Shopping",
-                style: TextStyle(
-                  color: primaryColor,
-                  fontSize: fontSize,
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
+      child: Obx(() => MyTabBarWidget(
+        borderColor:
+        selectedIndex.value == 6 ? Colors.white : Colors.transparent,
+        fontSize: fontSize,
+        icon: UpperScrollBar.shopping,
+        text: "Shopping",
+        iconColor: selectedIndex.value == 6 ? Colors.white : primaryColor,
+        iconSize: iconSize,
+        fontColor: selectedIndex.value == 6 ? Colors.white : primaryColor,
+        cardColor: selectedIndex.value == 6 ? primaryColor :Colors.white,
+      )),
     ),
     Tab(
-      child: Card(
-        shape: StadiumBorder(),
-        child: Padding(
-          padding:
-              const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                UpperScrollBar.todo,
-                color: primaryColor,
-                size: iconSize,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                "Things Todo",
-                style: TextStyle(
-                  color: primaryColor,
-                  fontSize: fontSize,
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
+      child: Obx(() => MyTabBarWidget(
+        borderColor:
+        selectedIndex.value == 7 ? Colors.white : Colors.transparent,
+        fontSize: fontSize,
+        icon: UpperScrollBar.todo,
+        text: "Things Todo",
+        iconColor: selectedIndex.value == 7 ? Colors.white : primaryColor,
+        iconSize: iconSize,
+        fontColor: selectedIndex.value == 7 ? Colors.white : primaryColor,
+        cardColor: selectedIndex.value == 7 ? primaryColor :Colors.white,
+      )),
     ),
     Tab(
-      child: Card(
-        shape: StadiumBorder(),
-        child: Padding(
-          padding:
-              const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                UpperScrollBar.nightlife,
-                color: primaryColor,
-                size: iconSize,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                "Life Style",
-                style: TextStyle(
-                  color: primaryColor,
-                  fontSize: fontSize,
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
+      child: Obx(() => MyTabBarWidget(
+        borderColor:
+        selectedIndex.value == 8 ? Colors.white : Colors.transparent,
+        fontSize: fontSize,
+        icon: UpperScrollBar.nightlife,
+        text: "Life Style",
+        iconColor: selectedIndex.value == 8 ? Colors.white : primaryColor,
+        iconSize: iconSize,
+        fontColor: selectedIndex.value == 8 ? Colors.white : primaryColor,
+        cardColor: selectedIndex.value == 8 ? primaryColor :Colors.white,
+      )),
     ),
     Tab(
-        child: Card(
-      shape: StadiumBorder(),
-      child: Padding(
-        padding:
-            const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              UpperScrollBar.pets,
-              color: primaryColor,
-              size: iconSize,
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              "Pet Care",
-              style: TextStyle(
-                color: primaryColor,
-                fontSize: fontSize,
-              ),
-            )
-          ],
-        ),
-      ),
-    )),
+        child: Obx(() => MyTabBarWidget(
+          borderColor:
+          selectedIndex.value == 9 ? Colors.white : Colors.transparent,
+          fontSize: fontSize,
+          icon: UpperScrollBar.pets,
+          text: "Pet Care",
+          iconColor: selectedIndex.value == 9 ? Colors.white : primaryColor,
+          iconSize: iconSize,
+          fontColor: selectedIndex.value == 9 ? Colors.white : primaryColor,
+          cardColor: selectedIndex.value == 9 ? primaryColor :Colors.white,
+        ))),
     Tab(
-      child: Card(
-        shape: StadiumBorder(),
-        child: Padding(
-          padding:
-              const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                UpperScrollBar.family,
-                color: primaryColor,
-                size: iconSize,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                "Family Care",
-                style: TextStyle(
-                  color: primaryColor,
-                  fontSize: fontSize,
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    )
+      child: Obx(() => MyTabBarWidget(
+        borderColor:
+        selectedIndex.value == 10 ? Colors.white : Colors.transparent,
+        fontSize: fontSize,
+        icon: UpperScrollBar.family,
+        text: "Family Care",
+        iconColor: selectedIndex.value == 10 ? Colors.white : primaryColor,
+        iconSize: iconSize,
+        fontColor: selectedIndex.value == 10 ? Colors.white : primaryColor,
+        cardColor: selectedIndex.value == 10 ? primaryColor :Colors.white,
+      )),
+    ),
   ];
 
   @override
   void onInit() {
     super.onInit();
-    controller = TabController(vsync: this, length: myTabs.length , initialIndex: selectedIndex);
-    controller.animateTo(selectedIndex);
+    tabcontroller = TabController(
+        vsync: this, length: myTabs.length, initialIndex: indexValue.value);
+    tabcontroller.addListener(() {
+      selectedIndex.value = tabcontroller.index;
 
-    controller.addListener(() {
-      selectedIndex = controller.index;
       print("Selecting Index");
-      print("Selected Index: ${controller.index}");
+      print("Selected Index: ${tabcontroller.index}");
     });
-
   }
+
   @override
   void onClose() {
-    controller.dispose();
+    tabcontroller.dispose();
     super.onClose();
   }
 }

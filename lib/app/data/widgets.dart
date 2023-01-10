@@ -1,18 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:virtual_assistant/app/data/Constants.dart';
+import 'package:virtual_assistant/app/data/constants.dart';
 import 'package:virtual_assistant/app/modules/Appointment/views/appointment_view.dart';
 import 'package:virtual_assistant/app/modules/Expenses/views/expenses_view.dart';
 import 'package:virtual_assistant/app/modules/TodoList/views/todo_list_view.dart';
 import '../modules/DailyTracker/views/daily_tracker_view.dart';
-import '../modules/RegisterUser/views/register_user_view.dart';
 import '../modules/auth/LoginScreen/views/login_screen_view.dart';
 import 'my_flutter_app_icons.dart';
 
-class MyButton extends StatelessWidget {
+class MyButton extends GetView {
   const MyButton(
       {Key? key,
       required this.onTap,
@@ -304,8 +301,8 @@ class MyDrawer extends StatelessWidget {
                     children: <Widget>[
                       MyButton(
                         gradient: LinearGradient(colors: [
-                          Color(0xFFFF8855),
-                          Color(0xFFF4A242),
+                          Color(0xFF1099AE),
+                          Color(0xFF55E0F6),
                         ]),
                         fontColor: Colors.white,
                         onTap: () {
@@ -491,39 +488,98 @@ class MyTabBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-        initialIndex: indexValue.value,
-        length: length,
-        child: Scaffold(
-            appBar: AppBar(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(25),
-                      bottomLeft: Radius.circular(25))),
-              toolbarHeight: h * 0.12,
-              backgroundColor: primaryColor,
-              centerTitle: true,
-              title: Text("General"),
-              bottom: PreferredSize(
-                preferredSize: Size.zero,
-                child: Transform.translate(
-                    offset: Offset(0, h * 0.025),
-                    child: TabBar(
-                        onTap: (tabBar) {
-                          selectedTabBar.value = tabBar;
+    return Scaffold(
+        appBar: AppBar(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(25),
+                  bottomLeft: Radius.circular(25))),
+          toolbarHeight: h * 0.12,
+          backgroundColor: primaryColor,
+          centerTitle: true,
+          title: Text("General"),
+          bottom: PreferredSize(
+            preferredSize: Size.zero,
+            child: Transform.translate(
+                offset: Offset(0, h * 0.025),
+                child: TabBar(
+                  labelPadding: EdgeInsets.zero,
+                    onTap: (tabBar) {
+                      selectedTabBar.value = tabBar;
+                    },
+                    indicatorColor: Colors.transparent,
+                    controller: tabController,
+                    tabs: bottomWidget,
+                    isScrollable: true)),
+          ),
+        ),
+        body: TabBarView(
+          controller: tabController,
+          children: tabBarWidget,
+        ));
+  }
+}
 
-                        },
+class MyTabBarWidget extends StatelessWidget {
+  final Color? cardColor;
+  final Color borderColor;
+  final Color? iconColor;
+  final double? iconSize;
+  final double? fontSize;
+  final Color? fontColor;
+  final IconData? icon;
+  final String? text;
 
-                        physics: BouncingScrollPhysics(),
-                        indicatorColor: Colors.transparent,
-                        tabs: bottomWidget,
-                        controller: tabController,
-                        isScrollable: true)),
-              ),
+  const MyTabBarWidget(
+      {Key? key,
+      this.cardColor,
+      required this.borderColor,
+      this.iconColor,
+      this.iconSize,
+      this.fontSize,
+      this.fontColor,
+      this.icon,
+      this.text})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: StadiumBorder(
+          side: BorderSide(
+        width: 1,
+        color: borderColor,
+      )),
+      color: cardColor,
+      child: Padding(
+        padding: const EdgeInsets.only(
+          left: 15,
+          right: 15,
+          top: 10,
+          bottom: 10,
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              color: iconColor,
+              size: iconSize,
             ),
-            body: TabBarView(
-              children: tabBarWidget,
-            )));
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              text ?? "",
+              style: TextStyle(
+                fontSize: fontSize,
+                color: fontColor,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
 

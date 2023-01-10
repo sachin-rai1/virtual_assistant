@@ -3,9 +3,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:virtual_assistant/app/data/Widgets.dart';
+import 'package:virtual_assistant/app/data/widgets.dart';
 
-import '../../../data/Constants.dart';
+import '../../../data/constants.dart';
 import '../controllers/todo_list_controller.dart';
 
 class TodoListView extends GetView<TodoListController> {

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:virtual_assistant/app/modules/auth/LoginScreen/views/login_screen_view.dart';
 
-import '../../../data/Constants.dart';
-import '../../../data/Widgets.dart';
+import '../../../data/constants.dart';
+import '../../../data/widgets.dart';
 import '../controllers/register_user_controller.dart';
 
 class RegisterUserView extends GetView<RegisterUserController> {

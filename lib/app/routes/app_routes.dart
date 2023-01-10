@@ -13,6 +13,17 @@ abstract class Routes {
   static const TODO_LIST = _Paths.TODO_LIST;
   static const APPOINTMENT = _Paths.APPOINTMENT;
   static const EXPENSES = _Paths.EXPENSES;
+  static const FAMILY_CARE_TAB = _Paths.FAMILY_CARE_TAB;
+  static const PET_CARE_TAB = _Paths.PET_CARE_TAB;
+  static const LIFE_STYLE_TAB = _Paths.LIFE_STYLE_TAB;
+  static const SHOPPING_TAB = _Paths.SHOPPING_TAB;
+  static const MEDICINE_TAB = _Paths.MEDICINE_TAB;
+  static const BILL_TAB = _Paths.BILL_TAB;
+  static const EVENT_TAB = _Paths.EVENT_TAB;
+  static const CALL_TAB = _Paths.CALL_TAB;
+  static const WATER_TAB = _Paths.WATER_TAB;
+  static const GENERAL_TAB = _Paths.GENERAL_TAB;
+  static const THINGS_TO_DO_TAB = _Paths.THINGS_TO_DO_TAB;
 }
 
 abstract class _Paths {
@@ -25,4 +36,15 @@ abstract class _Paths {
   static const TODO_LIST = '/todo-list';
   static const APPOINTMENT = '/appointment';
   static const EXPENSES = '/expenses';
+  static const FAMILY_CARE_TAB = '/family-care-tab';
+  static const PET_CARE_TAB = '/pet-care-tab';
+  static const LIFE_STYLE_TAB = '/life-style-tab';
+  static const THINGS_TO_DO_TAB = '/things-to-do-tab';
+  static const SHOPPING_TAB = '/shopping-tab';
+  static const MEDICINE_TAB = '/medicine-tab';
+  static const BILL_TAB = '/bill-tab';
+  static const EVENT_TAB = '/event-tab';
+  static const CALL_TAB = '/call-tab';
+  static const WATER_TAB = '/water-tab';
+  static const GENERAL_TAB = '/general-tab';
 }

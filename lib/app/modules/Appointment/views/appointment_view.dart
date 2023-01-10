@@ -4,8 +4,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../../../data/Constants.dart';
-import '../../../data/Widgets.dart';
+import '../../../data/constants.dart';
+import '../../../data/widgets.dart';
 
 import '../controllers/appointment_controller.dart';
 
