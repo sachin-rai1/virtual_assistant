@@ -93,20 +93,53 @@ class ExpensesView extends GetView<ExpensesController> {
                     itemCount: items.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Dismissible(
+                        background: Container(
+                          color: Colors.blue,
+                          child: Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: Row(
+                              children: [
+                                Icon(Icons.favorite, color: Colors.white),
+                                Text('Move to favorites',
+                                    style: TextStyle(color: Colors.white)),
+                              ],
+                            ),
+                          ),
+                        ),
+                        secondaryBackground: Container(
+                          color: Colors.red,
+                          child: Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Icon(Icons.delete, color: Colors.white),
+                                Text('Move to trash',
+                                    style: TextStyle(color: Colors.white)),
+                              ],
+                            ),
+                          ),
+                        ),
                         confirmDismiss: (DismissDirection direction) async {
                           return await showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 title: const Text("Confirm"),
-                                content: const Text("Are you sure to delete this item?"),
+                                content: (direction ==
+                                        DismissDirection.startToEnd)
+                                    ? Text("Hii")
+                                    : const Text(
+                                        "Are you sure to delete this item?"),
                                 actions: <Widget>[
                                   MyElevatedButton(
                                     shapeBorder: RoundedRectangleBorder(),
                                     onTap: () {
                                       Get.back();
                                       items.removeAt(index);
-                                      Fluttertoast.showToast(msg: "${items[index]} deleted" , backgroundColor: primaryColor);
+                                      Fluttertoast.showToast(
+                                          msg: "${items[index]} deleted",
+                                          backgroundColor: primaryColor);
                                     },
                                     text: 'Delete',
                                     iconData: Icons.delete,
@@ -126,9 +159,6 @@ class ExpensesView extends GetView<ExpensesController> {
                             },
                           );
                         },
-
-                        direction: DismissDirection.endToStart,
-
                         key: UniqueKey(),
                         child: Card(
                           shape: RoundedRectangleBorder(

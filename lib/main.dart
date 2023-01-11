@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:month_year_picker/month_year_picker.dart';
 import 'package:virtual_assistant/app/modules/SplashScreen/views/splash_screen_view.dart';
 import 'package:virtual_assistant/app/modules/auth/LoginScreen/views/login_screen_view.dart';
-
 import 'app/routes/app_pages.dart';
 
 void main() {
@@ -17,7 +16,6 @@ void main() {
   runApp(
     GetMaterialApp(
       localizationsDelegates: [
-
         MonthYearPickerLocalizations.delegate
       ],
       debugShowCheckedModeBanner: false,
