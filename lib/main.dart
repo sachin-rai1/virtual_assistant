@@ -5,11 +5,12 @@ import 'package:get/get.dart';
 import 'package:month_year_picker/month_year_picker.dart';
 import 'package:virtual_assistant/app/modules/SplashScreen/views/splash_screen_view.dart';
 import 'package:virtual_assistant/app/modules/auth/LoginScreen/views/login_screen_view.dart';
+import 'app/data/notification_services.dart';
 import 'app/routes/app_pages.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await NotificationService().init();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);

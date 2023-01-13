@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import '../modules/Appointment/bindings/appointment_binding.dart';
 import '../modules/Appointment/views/appointment_view.dart';
 import '../modules/DailyTracker/bindings/daily_tracker_binding.dart';
-import '../modules/DailyTracker/bindings/daily_tracker_binding.dart';
-import '../modules/DailyTracker/views/daily_tracker_view.dart';
 import '../modules/DailyTracker/views/daily_tracker_view.dart';
 import '../modules/Expenses/bindings/expenses_binding.dart';
 import '../modules/Expenses/views/expenses_view.dart';
@@ -48,7 +46,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LOGIN_SCREEN;
+  static const initial = Routes.LOGIN_SCREEN;
 
   static final routes = [
     GetPage(
@@ -150,7 +148,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.WATER_TAB,
-      page: () => const WaterTabView(),
+      page: () => WaterTabView(),
       binding: WaterTabBinding(),
     ),
     GetPage(

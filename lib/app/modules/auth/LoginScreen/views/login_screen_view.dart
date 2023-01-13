@@ -19,6 +19,7 @@ class LoginScreenView extends GetView<LoginScreenController> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
+                height: h * 0.3,
                 padding: EdgeInsets.only(top: h * 0.15),
                 child: Text(
                   'Logo',
@@ -45,7 +46,9 @@ class LoginScreenView extends GetView<LoginScreenController> {
                       borderRadius: 10,
                       hint: "Email",
                     ),
-                    SizedBox(height: h * 0.01,),
+                    SizedBox(
+                      height: h * 0.01,
+                    ),
                     MyTextField(
                       height: h * 0.06,
                       obSecure: true,
@@ -95,46 +98,46 @@ class LoginScreenView extends GetView<LoginScreenController> {
                   ],
                 ),
               ),
+              Container(
+                height: h * 0.3,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      "- Or Sign in With - ",
+                      style: TextStyle(color: secondaryColor, fontSize: 16),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        InkWell(
+                            onTap: () {},
+                            child: Container(
+                                height: h * 0.1,
+                                width: w * 0.25,
+                                child: Image.asset("assets/icons/google.png"))),
+                        InkWell(
+                            onTap: () {},
+                            child: Container(
+                                height: h * 0.1,
+                                width: w * 0.25,
+                                child: Image.asset("assets/icons/facebook.png"))),
+                        InkWell(
+                            onTap: () {},
+                            child: Container(
+                                height: h * 0.1,
+                                width: w * 0.25,
+                                child: Image.asset("assets/icons/twitter.png"))),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        // color: Colors.green,
-        height: h * 0.15,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(
-              "- Or Sign in With - ",
-              style: TextStyle(color: secondaryColor, fontSize: 16),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                InkWell(
-                    onTap: () {},
-                    child: Container(
-                        height: h * 0.1,
-                        width: w * 0.25,
-                        child: Image.asset("assets/icons/google.png"))),
-                InkWell(
-                    onTap: () {},
-                    child: Container(
-                        height: h * 0.1,
-                        width: w * 0.25,
-                        child: Image.asset("assets/icons/facebook.png"))),
-                InkWell(
-                    onTap: () {},
-                    child: Container(
-                        height: h * 0.1,
-                        width: w * 0.25,
-                        child: Image.asset("assets/icons/twitter.png"))),
-              ],
-            ),
-          ],
-        ),
-      ),
+
     );
   }
 }

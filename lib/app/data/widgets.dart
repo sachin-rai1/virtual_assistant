@@ -69,36 +69,39 @@ class MyButton extends GetView {
 class MyTextField extends StatelessWidget {
   const MyTextField(
       {Key? key,
-      this.widget,
+      this.suffixIcon,
       this.hint,
       this.label,
       this.onTap,
       this.controller,
       this.readOnly,
-      this.hintstyle,
+      this.hintStyle,
       this.keyBoardType,
       this.focusNode,
       this.borderRadius,
       this.obSecure,
       this.height,
       this.width,
-      this.validator})
+      this.validator, this.initialText, this.prefixIcon})
       : super(key: key);
 
-  final Widget? widget;
+  final Widget? suffixIcon;
+  final Widget? prefixIcon;
   final Function()? onTap;
   final String? hint;
   final String? label;
   final TextEditingController? controller;
   final bool? readOnly;
   final bool? obSecure;
-  final TextStyle? hintstyle;
+  final TextStyle? hintStyle;
   final TextInputType? keyBoardType;
   final FocusNode? focusNode;
   final double? borderRadius;
   final double? height;
   final double? width;
   final String? Function(String?)? validator;
+  final String? initialText;
+
 
   @override
   Widget build(BuildContext context) {
@@ -107,15 +110,11 @@ class MyTextField extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // (label == null) ? const Text("") : Text(label!),
-            // SizedBox(
-            //   height: (label == null) ? 0 : 5,
-            // ),
             SizedBox(
               height: height,
               width: width,
               child: Material(
-                elevation: 5,
+                elevation: 0,
                 shadowColor: Colors.white,
                 color: Colors.white,
                 child: TextFormField(
@@ -126,15 +125,16 @@ class MyTextField extends StatelessWidget {
                   onTap: onTap,
                   readOnly: readOnly ?? false,
                   obscureText: obSecure ?? false,
+                  initialValue: initialText,
                   decoration: InputDecoration(
-                      suffixIcon: widget,
+                      suffixIcon: suffixIcon,
+                      prefixIcon: prefixIcon,
                       contentPadding: const EdgeInsets.only(left: 10),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
                         borderRadius: BorderRadius.circular(borderRadius ?? 0),
                       ),
                       hintText: hint,
-                      hintStyle: hintstyle),
+                      hintStyle: hintStyle),
                 ),
               ),
             ),
@@ -694,6 +694,44 @@ class MyAppBar extends StatelessWidget {
               ),
             ))
       ],
+    );
+  }
+}
+
+class ReadOnly extends StatelessWidget {
+ final Function() onTap;
+ final String controller;
+ final Icon icons;
+
+  ReadOnly({Key? key, required this.controller, required this.onTap, required this.icons})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: Colors.grey.withOpacity(0.5),
+            )),
+        height: 40,
+        child: Center(
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0, right: 4.0,),
+                child: icons,
+              ),
+              Text(
+                controller,
+                style: TextStyle(fontSize: 15),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

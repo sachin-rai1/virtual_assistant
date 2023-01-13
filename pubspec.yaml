@@ -8,8 +8,6 @@ environment:
 dependencies: 
   cupertino_icons: ^1.0.2
   get: 4.6.5
-  flutter: 
-    sdk: flutter
   animated_splash_screen: ^1.3.0
   page_transition: ^2.0.9
   persistent_bottom_nav_bar: ^5.0.2
@@ -19,8 +17,11 @@ dependencies:
   date_time_picker_widget: ^1.0.1+4
   fluttertoast: ^8.1.2
   month_year_picker: ^0.2.0+3
-
-
+  animated_toggle_switch: ^0.6.1
+  flutter_local_notifications: 13.0.0
+  flutter_native_timezone: 2.0.0
+  flutter: 
+    sdk: flutter
 
 dev_dependencies: 
   flutter_lints: ^2.0.0
@@ -28,21 +29,18 @@ dev_dependencies:
   flutter_test: 
     sdk: flutter
 
-
-
-
 flutter: 
-  uses-material-design: true
-  assets:
+  assets: 
     - assets/icons/
-  fonts:
-   - family: BottomNavIcon
-     fonts:
-      - asset: assets/font/BottomNavIcon.ttf
-   - family: DrawerIcon
-     fonts:
-      - asset: assets/font/DrawerIcon.ttf
-   - family: UpperScrollBar
-     fonts:
-      - asset: assets/font/UpperScrollBar.ttf
+  fonts: 
+    - family: BottomNavIcon
+      fonts: 
+        - asset: assets/font/BottomNavIcon.ttf
+    - family: DrawerIcon
+      fonts: 
+        - asset: assets/font/DrawerIcon.ttf
+    - family: UpperScrollBar
+      fonts: 
+        - asset: assets/font/UpperScrollBar.ttf
+  uses-material-design: true
 

@@ -12,9 +12,6 @@ import '../controllers/daily_tracker_controller.dart';
 
 class DailyTrackerView extends GetView<DailyTrackerController> {
   DailyTrackerView({Key? key}) : super(key: key);
-
-  final GlobalKey _formKey = GlobalKey();
-
   late String d2;
 
   @override
