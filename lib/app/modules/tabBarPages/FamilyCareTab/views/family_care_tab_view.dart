@@ -52,6 +52,84 @@ class FamilyCareTabView extends GetView<FamilyCareTabController> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
+                          "Date   :  ${DateFormat('dd-MM-yyyy').format(controller.selectedDate.value)}",
+                          style: TextStyle(
+                              color: primaryColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16),
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        GestureDetector(
+                            onTap: () {
+                              Get.defaultDialog(
+                                  title: "",
+                                  contentPadding: EdgeInsets.zero,
+                                  content: GetX<FamilyCareTabController>(
+                                      builder: (controller) {
+                                    return Column(
+                                      children: [
+                                        MyTextField(
+                                          prefixIcon: Icon(
+                                            Icons.date_range_outlined,
+                                            color: primaryColor,
+                                          ),
+                                          hint: DateFormat('dd-MM-yyyy').format(
+                                              controller.selectedDate.value),
+                                          hintStyle:
+                                              TextStyle(color: Colors.black),
+                                          onTap: () {
+                                            controller.getDatePicker(context);
+                                            controller.update();
+                                          },
+                                          borderRadius: 10,
+                                          height: 40,
+                                          readOnly: true,
+                                        ),
+                                        MyTextField(
+                                          prefixIcon: Icon(
+                                            Icons.access_time_outlined,
+                                            color: primaryColor,
+                                          ),
+                                          hint: controller.selectedTime.value
+                                              .toString(),
+                                          hintStyle:
+                                              TextStyle(color: Colors.black),
+                                          onTap: () {
+                                            controller.getTime(
+                                                context: context);
+                                            controller.update();
+                                          },
+                                          borderRadius: 10,
+                                          height: 40,
+                                          readOnly: true,
+                                        ),
+                                        MyButton(
+                                          onTap: () {},
+                                          label: "Set Reminder",
+                                          height: 40,
+                                          fontColor: Colors.white,
+                                          width: w * 0.4,
+                                          circularInt: 10,
+                                        )
+                                      ],
+                                    );
+                                  }));
+                            },
+                            child: Icon(
+                              Icons.edit,
+                              color: primaryColor,
+                            ))
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
                           "Time   : ${DateFormat(' hh:mm a').format(DateTime.now())}",
                           style: TextStyle(
                               color: primaryColor,
@@ -116,6 +194,16 @@ class FamilyCareTabView extends GetView<FamilyCareTabController> {
                               fontSize: 16),
                         ),
                       ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "Date   :  ${DateFormat('dd-MM-yyyy').format(controller.selectedDate.value)}",
+                      style: TextStyle(
+                          color: primaryColor,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16),
                     ),
                     SizedBox(
                       height: 20,
@@ -192,6 +280,16 @@ class FamilyCareTabView extends GetView<FamilyCareTabController> {
                     SizedBox(
                       height: 20,
                     ),
+                    Text(
+                      "Date   :  ${DateFormat('dd-MM-yyyy').format(controller.selectedDate.value)}",
+                      style: TextStyle(
+                          color: primaryColor,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -264,6 +362,16 @@ class FamilyCareTabView extends GetView<FamilyCareTabController> {
                     SizedBox(
                       height: 20,
                     ),
+                    Text(
+                      "Date   :  ${DateFormat('dd-MM-yyyy').format(controller.selectedDate.value)}",
+                      style: TextStyle(
+                          color: primaryColor,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -309,139 +417,159 @@ class FamilyCareTabView extends GetView<FamilyCareTabController> {
                 ),
               ),
             ),
-            Obx(
-              () => ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: items.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      elevation: 5,
-                      shadowColor: Colors.grey.withOpacity(0.2),
-                      margin: EdgeInsets.only(
-                          left: w * 0.04, right: w * 0.04, top: h * 0.015),
-                      child: Padding(
-                        padding: EdgeInsets.all(h * 0.02),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            FutureBuilder(
+                future: controller.fetchData(),
+                builder: (context, snapshot) {
+                  return ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: controller.data.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          elevation: 5,
+                          shadowColor: Colors.grey.withOpacity(0.2),
+                          margin: EdgeInsets.only(
+                              left: w * 0.04, right: w * 0.04, top: h * 0.015),
+                          child: Padding(
+                            padding: EdgeInsets.all(h * 0.02),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  "Parental Health Checkup  $index",
-                                  style: TextStyle(
-                                      color: primaryColor,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16),
-                                ),
-                                GestureDetector(
-                                    onTap: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            title: const Text("Confirm"),
-                                            content: const Text(
-                                                "Are you sure to delete this item?"),
-                                            actions: <Widget>[
-                                              MyElevatedButton(
-                                                shapeBorder:
-                                                    RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                ),
-                                                onTap: () {
-                                                  Get.back();
-                                                  items.removeAt(index);
-                                                  Fluttertoast.showToast(
-                                                      msg: "deleted",
-                                                      backgroundColor:
-                                                          primaryColor);
-                                                },
-                                                text: 'Delete',
-                                                iconData: Icons.delete,
-                                                iconColor: Colors.red,
-                                              ),
-                                              MyElevatedButton(
-                                                shapeBorder:
-                                                    RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                ),
-                                                iconColor: Colors.grey,
-                                                iconData: Icons.cancel,
-                                                text: "Cancel",
-                                                onTap: () {
-                                                  Get.back();
-                                                },
-                                              ),
-                                            ],
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      controller.data[index].title.toString(),
+                                      style: TextStyle(
+                                          color: primaryColor,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16),
+                                    ),
+                                    GestureDetector(
+                                        onTap: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: const Text("Confirm"),
+                                                content: const Text(
+                                                    "Are you sure to delete this item?"),
+                                                actions: <Widget>[
+                                                  MyElevatedButton(
+                                                    shapeBorder:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                    ),
+                                                    onTap: () {
+                                                      Get.back();
+                                                      items.removeAt(index);
+                                                      Fluttertoast.showToast(
+                                                          msg: "deleted",
+                                                          backgroundColor:
+                                                              primaryColor);
+                                                    },
+                                                    text: 'Delete',
+                                                    iconData: Icons.delete,
+                                                    iconColor: Colors.red,
+                                                  ),
+                                                  MyElevatedButton(
+                                                    shapeBorder:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                    ),
+                                                    iconColor: Colors.grey,
+                                                    iconData: Icons.cancel,
+                                                    text: "Cancel",
+                                                    onTap: () {
+                                                      Get.back();
+                                                    },
+                                                  ),
+                                                ],
+                                              );
+                                            },
                                           );
                                         },
-                                      );
-                                    },
-                                    child: Icon(
-                                      CupertinoIcons.delete,
-                                      color: Colors.red,
-                                    ))
-                              ],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
+                                        child: Icon(
+                                          CupertinoIcons.delete,
+                                          color: Colors.red,
+                                        ))
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
                                 Text(
-                                  "Time   :  ${DateFormat(' hh:mm a').format(DateTime.now())}",
+                                  "Date   :  ${DateFormat('dd-MM-yyyy').format(controller.selectedDate.value)}",
                                   style: TextStyle(
                                       color: primaryColor,
                                       fontWeight: FontWeight.w500,
                                       fontSize: 16),
                                 ),
-                                Obx(
-                                  () => AnimatedToggleSwitch<bool>.dual(
-                                    current: controller.positive[index].value,
-                                    first: false,
-                                    second: true,
-                                    dif: 10,
-                                    indicatorColor: Colors.red,
-                                    height: 25,
-                                    indicatorSize: Size(25, 25),
-                                    borderWidth: 1,
-                                    onChanged: (checked) {
-                                      controller.positive[index].value =
-                                          checked;
-                                    },
-                                    colorBuilder: (b) =>
-                                        b ? Colors.green : Colors.grey,
-                                    textBuilder: (value) => value
-                                        ? Center(
-                                            child: Text(
-                                            'On',
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.bold),
-                                          ))
-                                        : Center(
-                                            child: Text('Off',
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Time   :  ${DateFormat(' hh:mm a').format(controller.data[index].time!)}",
+                                      style: TextStyle(
+                                          color: primaryColor,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16),
+                                    ),
+                                    GetX<FamilyCareTabController>(
+                                        builder: (controller) {
+                                      return AnimatedToggleSwitch<bool>.dual(
+                                        current: controller.data[index].status!,
+                                        first: false,
+                                        second: true,
+                                        dif: 10,
+                                        indicatorColor: Colors.red,
+                                        height: 25,
+                                        indicatorSize: Size(25, 25),
+                                        borderWidth: 1,
+                                        onChanged: (checked) {
+                                          controller.data[index].status =
+                                              checked;
+                                          print(checked);
+                                          controller.update();
+                                        },
+                                        colorBuilder: (b) =>
+                                            b ? Colors.green : Colors.grey,
+                                        textBuilder: (value) => value
+                                            ? Center(
+                                                child: Text(
+                                                'On',
                                                 style: TextStyle(
                                                     fontSize: 12,
                                                     fontWeight:
-                                                        FontWeight.bold))),
-                                  ),
+                                                        FontWeight.bold),
+                                              ))
+                                            : Center(
+                                                child: Text('Off',
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.bold))),
+                                      );
+                                    }),
+                                  ],
                                 ),
                               ],
                             ),
-                          ],
-                        ),
-                      ),
-                    );
-                  }),
-            ),
+                          ),
+                        );
+                      });
+                }),
           ],
         ),
       ),
@@ -450,12 +578,31 @@ class FamilyCareTabView extends GetView<FamilyCareTabController> {
             Get.defaultDialog(
                 title: "",
                 contentPadding: EdgeInsets.zero,
-                content: Column(
-                  children: [
-                    GetX<FamilyCareTabController>(builder: (controller) {
-                      return MyTextField(
-                        prefixIcon: Icon(Icons.access_time_outlined  , color: primaryColor,),
-                        hint: controller.startTime.value,
+                content: GetX<FamilyCareTabController>(builder: (controller) {
+                  return Column(
+                    children: [
+                      MyTextField(
+                        prefixIcon: Icon(
+                          Icons.date_range_outlined,
+                          color: primaryColor,
+                        ),
+                        hint: DateFormat('dd-MM-yyyy')
+                            .format(controller.selectedDate.value),
+                        hintStyle: TextStyle(color: Colors.black),
+                        onTap: () {
+                          controller.getDatePicker(context);
+                          controller.update();
+                        },
+                        borderRadius: 10,
+                        height: 40,
+                        readOnly: true,
+                      ),
+                      MyTextField(
+                        prefixIcon: Icon(
+                          Icons.access_time_outlined,
+                          color: primaryColor,
+                        ),
+                        hint: controller.selectedTime.value.toString(),
                         hintStyle: TextStyle(color: Colors.black),
                         onTap: () {
                           controller.getTime(context: context);
@@ -464,26 +611,26 @@ class FamilyCareTabView extends GetView<FamilyCareTabController> {
                         borderRadius: 10,
                         height: 40,
                         readOnly: true,
-                      );
-                    }),
-                    MyTextField(
-                      hint: "Add title",
-                      height: 40,
-                      borderRadius: 10,
-                    ),
-                    MyButton(
-                      onTap: () {
-                        Get.back();
-                        NotificationService().showScheduledNotification(int.parse(controller.startTime.split(":")[0]), int.parse(controller.startTime.split(":")[1].split(" ")[0]));
-                      },
-                      label: "Set Reminder",
-                      height: 40,
-                      fontColor: Colors.white,
-                      width: w * 0.4,
-                      circularInt: 10,
-                    )
-                  ],
-                ));
+                      ),
+                      MyTextField(
+                        hint: "Add title",
+                        height: 40,
+                        borderRadius: 10,
+                      ),
+                      MyButton(
+                        onTap: () {
+                          NotificationService()
+                              .showNotification("Hey", "Sachin");
+                        },
+                        label: "Set Reminder",
+                        height: 40,
+                        fontColor: Colors.white,
+                        width: w * 0.4,
+                        circularInt: 10,
+                      )
+                    ],
+                  );
+                }));
           },
           child: Icon(
             Icons.add,

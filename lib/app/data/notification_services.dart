@@ -7,12 +7,11 @@ import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 class NotificationService {
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  FlutterLocalNotificationsPlugin();
 
-  static final NotificationService _notificationService =
-  NotificationService._internal();
+   /// initializing local notification plugin
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
+  ///setting up Notification details platform wise
   NotificationDetails platformChannelSpecificsConst = NotificationDetails(
       android: AndroidNotificationDetails(
         "channelId",
@@ -34,36 +33,15 @@ class NotificationService {
         ],
       ),
       iOS: const DarwinNotificationDetails());
-  NotificationDetails themePlatformChannelSpecificsConst =
-  const NotificationDetails(
-      iOS: DarwinNotificationDetails(),
-      android: AndroidNotificationDetails(
-        "channelId",
-        "channelName",
-        ticker: 'ticker',
-        channelShowBadge: true,
-        enableLights: true,
-        color: Colors.green,
-        enableVibration: false,
-        playSound: true,
-        priority: Priority.high,
-        category: AndroidNotificationCategory.alarm,
-        importance: Importance.max,
-      ));
 
-  factory NotificationService() {
-    return _notificationService;
-  }
-
-  NotificationService._internal();
-
+  ///initializing local notification
   Future<void> init() async {
     await _configureLocalTimezone();
     AndroidInitializationSettings initializationSettingsAndroid =
-    const AndroidInitializationSettings('@mipmap/ic_launcher');
+        const AndroidInitializationSettings('@mipmap/ic_launcher');
 
     DarwinInitializationSettings initializationSettingsIOS =
-    DarwinInitializationSettings(
+        DarwinInitializationSettings(
       requestSoundPermission: false,
       requestBadgePermission: false,
       requestAlertPermission: false,
@@ -80,14 +58,10 @@ class NotificationService {
             print(notificationResponse.actionId);
             print("Notification Selected");
 
-
-
             break;
           case NotificationResponseType.selectedNotificationAction:
             if (notificationResponse.actionId == "2") {
               print(notificationResponse.actionId);
-
-
             }
             break;
         }
@@ -95,23 +69,28 @@ class NotificationService {
     );
   }
 
+  ///show notification at same time.
   showNotification(String title, String body) async {
     await flutterLocalNotificationsPlugin
         .show(0, title, body, platformChannelSpecificsConst, payload: "data");
   }
 
-  showThemeNotification({required String title, required String body}) async {
-    await flutterLocalNotificationsPlugin.show(
-        3, title, body, themePlatformChannelSpecificsConst,
-        payload: "data");
+
+  ///show notification based on time only by getting today's date by default
+  showTimelyScheduledNotification(int hour, int minute) async {
+    await flutterLocalNotificationsPlugin.zonedSchedule(1, "task.title",
+        "task.note", _convertTime(hour, minute), platformChannelSpecificsConst,
+        matchDateTimeComponents: DateTimeComponents.time,
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime);
   }
 
-  showScheduledNotification(int hour, int minute) async {
-    await flutterLocalNotificationsPlugin.zonedSchedule(
-        1,
-        "task.title",
+  ///show notification based on date and time both
+  showDateTimeScheduledNotification(int day , int month , int year , int hour, int minute) async {
+    await flutterLocalNotificationsPlugin.zonedSchedule(1, "task.title",
         "task.note",
-        _convertTime(hour, minute),
+        _convertDateTime(day, month, year, hour, minute),
         platformChannelSpecificsConst,
         matchDateTimeComponents: DateTimeComponents.time,
         androidAllowWhileIdle: true,
@@ -119,21 +98,20 @@ class NotificationService {
         UILocalNotificationDateInterpretation.absoluteTime);
   }
 
-  showAlarmNotification() async {}
-
-  Future onDidReceiveLocalNotification(
-      int id, String? title, String? body, String? payload) async {
+  ///after notification received
+  Future onDidReceiveLocalNotification(int id, String? title, String? body, String? payload) async {
     Get.dialog(const Text("Welcome To Flutter"));
   }
 
+  ///getting selected time only.
   tz.TZDateTime _convertTime(int hour, int minute) {
-    print("I am Coverting Time");
+    print("I am Converting Time");
     print("Hour ${hour.toString()}");
     print("Minute ${minute.toString()}");
 
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
     tz.TZDateTime scheduleDate =
-    tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
+        tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
 
     if (scheduleDate.isBefore(now)) {
       scheduleDate = scheduleDate.add(const Duration(days: 1));
@@ -144,10 +122,34 @@ class NotificationService {
     return scheduleDate;
   }
 
+  ///getting selected date and time both
+  tz.TZDateTime _convertDateTime(int day, int month, int year, int hour, int minute) {
+
+    print("I am converting DateTime");
+    print("day ${day.toString()}");
+    print("month ${month.toString()}");
+    print("year ${year.toString()}");
+    print("Hour ${hour.toString()}");
+    print("Minute ${minute.toString()}");
+
+    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+    tz.TZDateTime scheduleDate =
+        tz.TZDateTime(tz.local, year, month, day, hour, minute);
+
+    if (scheduleDate.isBefore(now)) {
+      scheduleDate = scheduleDate.add(const Duration(days: 1));
+    }
+    print("Scheduled Date : $scheduleDate");
+
+    return scheduleDate;
+  }
+
+
+  ///configuring localTimeZone as per device
   Future<void> _configureLocalTimezone() async {
     tz.initializeTimeZones();
     final String currentTimeZone =
-    await FlutterNativeTimezone.getLocalTimezone();
+        await FlutterNativeTimezone.getLocalTimezone();
     tz.setLocalLocation(tz.getLocation(currentTimeZone));
   }
 }
