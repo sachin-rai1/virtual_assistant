@@ -5,6 +5,7 @@ import 'package:virtual_assistant/app/data/constants.dart';
 import 'package:virtual_assistant/app/modules/Appointment/views/appointment_view.dart';
 import 'package:virtual_assistant/app/modules/Expenses/views/expenses_view.dart';
 import 'package:virtual_assistant/app/modules/TodoList/views/todo_list_view.dart';
+import 'package:virtual_assistant/app/modules/bankdetails/views/bankdetails_view.dart';
 import '../modules/DailyTracker/views/daily_tracker_view.dart';
 import '../modules/auth/LoginScreen/views/login_screen_view.dart';
 import 'my_flutter_app_icons.dart';
@@ -238,9 +239,7 @@ class MyDrawer extends StatelessWidget {
                   title: 'My Bank Details',
                   icon: DrawerIcon.passbook,
                   onTap: () {
-                    /*Navigator.pop(context);
-                      Navigator.of(context).push(new MaterialPageRoute(
-                          builder: (context) => shufflerBuilder()));*/
+                    Get.to(()=> BankDetailsView());
                   },
                 ),
                 MyListTile(

@@ -20,6 +20,8 @@ dependencies:
   animated_toggle_switch: ^0.6.1
   flutter_local_notifications: 13.0.0
   flutter_native_timezone: 2.0.0
+  shimmer: 2.0.0
+  skeleton_loader: 2.0.0+4
   flutter: 
     sdk: flutter
 

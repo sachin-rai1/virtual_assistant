@@ -12,18 +12,18 @@ class AlarmModel {
   });
 
   String ? title;
-  DateTime ? time;
+  String ? time;
   bool ? status;
 
   factory AlarmModel.fromJson(Map<String, dynamic> json) => AlarmModel(
     title: json["title"],
-    time: DateTime.parse(json["time"]),
+    time: json["time"],
     status: json["status"],
   );
 
   Map<String, dynamic> toJson() => {
     "title": title,
-    "time": time?.toIso8601String(),
+    "time": time,
     "status": status,
   };
 }

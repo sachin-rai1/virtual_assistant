@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:skeleton_loader/skeleton_loader.dart';
 import 'package:virtual_assistant/app/data/notification_services.dart';
+import 'package:virtual_assistant/app/modules/tabBarPages/FamilyCareTab/Model/familyModel.dart';
 import '../../../../data/constants.dart';
 import '../../../../data/widgets.dart';
 import '../controllers/family_care_tab_controller.dart';
@@ -15,7 +17,12 @@ class FamilyCareTabView extends GetView<FamilyCareTabController> {
   @override
   Widget build(BuildContext context) {
     Get.put(FamilyCareTabController());
-    final items = List<String>.generate(3, (i) => "Item ${i + 1}").obs;
+    int day = int.parse(DateFormat('dd').format(controller.selectedDate.value));
+    int month = int.parse(DateFormat('MM').format(controller.selectedDate.value));
+    int year = int.parse(DateFormat('yyyy').format(controller.selectedDate.value));
+    int hour = int.parse(controller.selectedTime.split(":")[0]);
+    int minute = int.parse(controller.selectedTime.split(":")[1].split(" ")[0]);
+
     return Scaffold(
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
@@ -420,161 +427,244 @@ class FamilyCareTabView extends GetView<FamilyCareTabController> {
             FutureBuilder(
                 future: controller.fetchData(),
                 builder: (context, snapshot) {
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: controller.data.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          elevation: 5,
-                          shadowColor: Colors.grey.withOpacity(0.2),
-                          margin: EdgeInsets.only(
-                              left: w * 0.04, right: w * 0.04, top: h * 0.015),
-                          child: Padding(
-                            padding: EdgeInsets.all(h * 0.02),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                  print(snapshot.connectionState);
+                  return (snapshot.connectionState == ConnectionState.waiting)
+                      ? SkeletonLoader(
+                    builder:Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      elevation: 5,
+                      shadowColor: Colors.grey.withOpacity(0.2),
+                      margin: EdgeInsets.only(
+                          left: w * 0.04,
+                          right: w * 0.04,
+                          top: h * 0.015),
+                      child: Padding(
+                        padding: EdgeInsets.all(h * 0.02),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
                               children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      controller.data[index].title.toString(),
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 16),
-                                    ),
-                                    GestureDetector(
-                                        onTap: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                title: const Text("Confirm"),
-                                                content: const Text(
-                                                    "Are you sure to delete this item?"),
-                                                actions: <Widget>[
-                                                  MyElevatedButton(
-                                                    shapeBorder:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8),
-                                                    ),
-                                                    onTap: () {
-                                                      Get.back();
-                                                      items.removeAt(index);
-                                                      Fluttertoast.showToast(
-                                                          msg: "deleted",
-                                                          backgroundColor:
-                                                              primaryColor);
-                                                    },
-                                                    text: 'Delete',
-                                                    iconData: Icons.delete,
-                                                    iconColor: Colors.red,
-                                                  ),
-                                                  MyElevatedButton(
-                                                    shapeBorder:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8),
-                                                    ),
-                                                    iconColor: Colors.grey,
-                                                    iconData: Icons.cancel,
-                                                    text: "Cancel",
-                                                    onTap: () {
-                                                      Get.back();
-                                                    },
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          );
-                                        },
-                                        child: Icon(
-                                          CupertinoIcons.delete,
-                                          color: Colors.red,
-                                        ))
-                                  ],
+                                Text("",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16),
                                 ),
-                                SizedBox(
-                                  height: 20,
-                                ),
+
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              "",
+                              style: TextStyle(
+                                  color: primaryColor,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
                                 Text(
-                                  "Date   :  ${DateFormat('dd-MM-yyyy').format(controller.selectedDate.value)}",
+                                  "",
                                   style: TextStyle(
                                       color: primaryColor,
                                       fontWeight: FontWeight.w500,
                                       fontSize: 16),
                                 ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Time   :  ${DateFormat(' hh:mm a').format(controller.data[index].time!)}",
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 16),
-                                    ),
-                                    GetX<FamilyCareTabController>(
-                                        builder: (controller) {
-                                      return AnimatedToggleSwitch<bool>.dual(
-                                        current: controller.data[index].status!,
-                                        first: false,
-                                        second: true,
-                                        dif: 10,
-                                        indicatorColor: Colors.red,
-                                        height: 25,
-                                        indicatorSize: Size(25, 25),
-                                        borderWidth: 1,
-                                        onChanged: (checked) {
-                                          controller.data[index].status =
-                                              checked;
-                                          print(checked);
-                                          controller.update();
-                                        },
-                                        colorBuilder: (b) =>
-                                            b ? Colors.green : Colors.grey,
-                                        textBuilder: (value) => value
-                                            ? Center(
-                                                child: Text(
-                                                'On',
-                                                style: TextStyle(
-                                                    fontSize: 12,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ))
-                                            : Center(
-                                                child: Text('Off',
-                                                    style: TextStyle(
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.bold))),
-                                      );
-                                    }),
-                                  ],
-                                ),
+
                               ],
                             ),
-                          ),
-                        );
-                      });
+                          ],
+                        ),
+                      ),
+                    ),
+                    items: controller.data.length,
+                    period: Duration(seconds: 2),
+                    highlightColor: Colors.grey.withOpacity(0.2),
+                    direction: SkeletonDirection.ltr,
+                  )
+                      : Obx(()=>
+                        ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: controller.data.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Card(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                elevation: 5,
+                                shadowColor: Colors.grey.withOpacity(0.2),
+                                margin: EdgeInsets.only(
+                                    left: w * 0.04,
+                                    right: w * 0.04,
+                                    top: h * 0.015),
+                                child: Padding(
+                                  padding: EdgeInsets.all(h * 0.02),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            controller.data[index].title
+                                                .toString(),
+                                            style: TextStyle(
+                                                color: primaryColor,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 16),
+                                          ),
+                                          GestureDetector(
+                                              onTap: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return AlertDialog(
+                                                      title:
+                                                          const Text("Confirm"),
+                                                      content: const Text(
+                                                          "Are you sure to delete this item?"),
+                                                      actions: <Widget>[
+                                                        MyElevatedButton(
+                                                          shapeBorder:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(8),
+                                                          ),
+                                                          onTap: () {
+                                                            Get.back();
+                                                            controller.data.removeAt(index);
+                                                            Fluttertoast.showToast(
+                                                                msg: "deleted",
+                                                                backgroundColor:
+                                                                    primaryColor);
+                                                          },
+                                                          text: 'Delete',
+                                                          iconData: Icons.delete,
+                                                          iconColor: Colors.red,
+                                                        ),
+                                                        MyElevatedButton(
+                                                          shapeBorder:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(8),
+                                                          ),
+                                                          iconColor: Colors.grey,
+                                                          iconData: Icons.cancel,
+                                                          text: "Cancel",
+                                                          onTap: () {
+                                                            Get.back();
+                                                          },
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                              child: Icon(
+                                                CupertinoIcons.delete,
+                                                color: Colors.red,
+                                              ))
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Text(
+                                        "Date   :  ${DateFormat('dd-MM-yyyy').format(DateTime.parse(controller.data[index].time!))}",
+                                        style: TextStyle(
+                                            color: primaryColor,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 16),
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            (Get.mediaQuery.alwaysUse24HourFormat)
+                                                ? "Time   :${DateFormat(' HH:mm').format(DateTime.parse(controller.data[index].time!))}"
+                                                : "Time   :${DateFormat(' hh:mm a').format(DateTime.parse(controller.data[index].time!))}",
+                                            style: TextStyle(
+                                                color: primaryColor,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 16),
+                                          ),
+                                          GetBuilder<FamilyCareTabController>(
+                                              builder: (controller) {
+                                            return AnimatedToggleSwitch<
+                                                bool>.dual(
+                                              current:
+                                                  controller.data[index].status!,
+                                              first: false,
+                                              second: true,
+                                              dif: 10,
+                                              indicatorColor: Colors.red,
+                                              height: 25,
+                                              indicatorSize: Size(25, 25),
+                                              borderWidth: 1,
+                                              onChanged: (checked) {
+                                                controller.data[index].status =
+                                                    checked;
+                                                print(checked);
+                                                controller.update();
+                                              },
+                                              colorBuilder: (b) =>
+                                                  b ? Colors.green : Colors.grey,
+                                              textBuilder: (value) => value
+                                                  ? Center(
+                                                      child: Text(
+                                                      'On',
+                                                      style: TextStyle(
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ))
+                                                  : Center(
+                                                      child: Text('Off',
+                                                          style: TextStyle(
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold))),
+                                            );
+                                          }),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }),
+                      );
                 }),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
+            controller.titleText.clear();
+            controller.selectedDate.value = DateTime.now();
+            controller.selectedTime.value =
+                DateFormat('hh:mm').format(DateTime.now());
+
             Get.defaultDialog(
                 title: "",
                 contentPadding: EdgeInsets.zero,
@@ -613,14 +703,23 @@ class FamilyCareTabView extends GetView<FamilyCareTabController> {
                         readOnly: true,
                       ),
                       MyTextField(
+                        controller: controller.titleText,
                         hint: "Add title",
                         height: 40,
                         borderRadius: 10,
                       ),
                       MyButton(
                         onTap: () {
+                          Get.back();
+                          controller.postApiData(AlarmModel(
+                            title: controller.titleText.text,
+                            time:
+                                "${DateFormat('dd-MM-yyyy').format(controller.selectedDate.value)} ${controller.selectedTime}",
+                            status: true,
+                          ));
                           NotificationService()
-                              .showNotification("Hey", "Sachin");
+                              .showDateTimeScheduledNotification(
+                                  day, month, year, hour, minute);
                         },
                         label: "Set Reminder",
                         height: 40,

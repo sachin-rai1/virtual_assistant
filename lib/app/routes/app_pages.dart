@@ -16,6 +16,8 @@ import '../modules/TodoList/bindings/todo_list_binding.dart';
 import '../modules/TodoList/views/todo_list_view.dart';
 import '../modules/auth/LoginScreen/bindings/login_screen_binding.dart';
 import '../modules/auth/LoginScreen/views/login_screen_view.dart';
+import '../modules/bankdetails/bindings/bankdetails_binding.dart';
+import '../modules/bankdetails/views/bankdetails_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/tabBarPages/BillTab/bindings/bill_tab_binding.dart';
@@ -155,6 +157,11 @@ class AppPages {
       name: _Paths.GENERAL_TAB,
       page: () => const GeneralTabView(),
       binding: GeneralTabBinding(),
+    ),
+    GetPage(
+      name: _Paths.BANKDETAILS,
+      page: () => const BankDetailsView(),
+      binding: BankdetailsBinding(),
     ),
   ];
 }

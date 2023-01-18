@@ -24,6 +24,7 @@ abstract class Routes {
   static const WATER_TAB = _Paths.WATER_TAB;
   static const GENERAL_TAB = _Paths.GENERAL_TAB;
   static const THINGS_TO_DO_TAB = _Paths.THINGS_TO_DO_TAB;
+  static const BANKDETAILS = _Paths.BANKDETAILS;
 }
 
 abstract class _Paths {
@@ -47,4 +48,5 @@ abstract class _Paths {
   static const CALL_TAB = '/call-tab';
   static const WATER_TAB = '/water-tab';
   static const GENERAL_TAB = '/general-tab';
+  static const BANKDETAILS = '/bankdetails';
 }
