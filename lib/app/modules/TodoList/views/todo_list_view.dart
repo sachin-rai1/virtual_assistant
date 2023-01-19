@@ -1,27 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:virtual_assistant/app/data/widgets.dart';
-
 import '../../../data/constants.dart';
+import '../../showEvents/views/show_events_view.dart';
 import '../controllers/todo_list_controller.dart';
+import 'package:cell_calendar/cell_calendar.dart';
 
 class TodoListView extends GetView<TodoListController> {
   const TodoListView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Get.put(TodoListController());
     final items = List<String>.generate(20, (i) => "Item ${i + 1}").obs;
-
     return MyScaffold(
       appBarAction: [
-        Container(
-          height: 10,
-          padding: const EdgeInsets.only(right: 10, top: 5),
-          child: Image.asset(
-            'assets/icons/calendar.png',
+        GestureDetector(
+          onTap: (){
+            Get.defaultDialog(
+              title: "",
+              contentPadding: EdgeInsets.zero,
+              content:  Expanded(
+                child: Container(
+                  width: w,
+                  height: h,
+                  child: CellCalendar(
+                    events: [
+                      CalendarEvent(eventName: "eventName", eventDate: DateTime.now()) ,
+                      CalendarEvent(eventName: "eventName", eventDate:DateTime.now().add(Duration(days: -1))) ,
+                    ],
+                    daysOfTheWeekBuilder: (dayIndex) {
+                      /// dayIndex: 0 for Sunday, 6 for Saturday.
+                      final labels = ["S", "M", "T", "W", "T", "F", "S"];
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 4.0),
+                        child: Text(
+                          labels[dayIndex],
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      );
+                    },
+                    onCellTapped: (date) {
+                     Get.to(() => ShowEventsView());
+                    },
+
+                  ),
+                ),
+              ),
+            );
+          },
+          child: Container(
+            height: 10,
+            padding: const EdgeInsets.only(right: 10, top: 5),
+            child: Image.asset(
+              'assets/icons/calendar.png',
+            ),
           ),
         ),
       ],

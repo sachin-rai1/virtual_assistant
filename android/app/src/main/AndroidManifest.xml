@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="virtual_assistant.virtual_assistant">
-   <application
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
         android:label="virtual_assistant"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

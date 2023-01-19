@@ -1,7 +1,7 @@
+import 'package:cell_calendar/cell_calendar.dart';
 import 'package:get/get.dart';
 
 class TodoListController extends GetxController {
-  //TODO: Implement TodoListController
 
   final count = 0.obs;
   @override
@@ -20,4 +20,11 @@ class TodoListController extends GetxController {
   }
 
   void increment() => count.value++;
+
+  List<CalendarEvent> sampleEvents(){
+    final sampleEvents = [
+      CalendarEvent(eventName: "Hey", eventDate: DateTime.now().add(Duration(days: -2)))
+    ];
+    return sampleEvents;
+  }
 }

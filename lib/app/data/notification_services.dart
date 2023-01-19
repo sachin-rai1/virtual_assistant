@@ -70,9 +70,9 @@ class NotificationService {
   }
 
   ///show notification at same time.
-  showNotification(String title, String body) async {
+  showNotification(String title, String body , int id) async {
     await flutterLocalNotificationsPlugin
-        .show(0, title, body, platformChannelSpecificsConst, payload: "data");
+        .show(id, title, body, platformChannelSpecificsConst, payload: "data");
   }
 
 
@@ -87,8 +87,10 @@ class NotificationService {
   }
 
   ///show notification based on date and time both
-  showDateTimeScheduledNotification(int day , int month , int year , int hour, int minute) async {
-    await flutterLocalNotificationsPlugin.zonedSchedule(1, "task.title",
+  showDateTimeScheduledNotification(int channelId ,  int day , int month , int year , int hour, int minute) async {
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+        channelId,
+        "task.title",
         "task.note",
         _convertDateTime(day, month, year, hour, minute),
         platformChannelSpecificsConst,
@@ -151,5 +153,14 @@ class NotificationService {
     final String currentTimeZone =
         await FlutterNativeTimezone.getLocalTimezone();
     tz.setLocalLocation(tz.getLocation(currentTimeZone));
+  }
+
+
+  cancelNotificationByID(int id) async {
+    await flutterLocalNotificationsPlugin.cancel(id);
+  }
+
+  cancelAllNotification() async {
+    await flutterLocalNotificationsPlugin.cancelAll();
   }
 }

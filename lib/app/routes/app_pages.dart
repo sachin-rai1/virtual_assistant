@@ -20,6 +20,8 @@ import '../modules/bankdetails/bindings/bankdetails_binding.dart';
 import '../modules/bankdetails/views/bankdetails_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/showEvents/bindings/show_events_binding.dart';
+import '../modules/showEvents/views/show_events_view.dart';
 import '../modules/tabBarPages/BillTab/bindings/bill_tab_binding.dart';
 import '../modules/tabBarPages/BillTab/views/bill_tab_view.dart';
 import '../modules/tabBarPages/CallTab/bindings/call_tab_binding.dart';
@@ -162,6 +164,11 @@ class AppPages {
       name: _Paths.BANKDETAILS,
       page: () => const BankDetailsView(),
       binding: BankdetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.SHOW_EVENTS,
+      page: () =>  ShowEventsView(),
+      binding: ShowEventsBinding(),
     ),
   ];
 }
